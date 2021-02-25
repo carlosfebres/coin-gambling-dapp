@@ -3,6 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
+    "antd": "^4.12.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-scripts": "4.0.3",
+    "redux": "^4.0.5",
+    "web-vitals": "^1.0.1",
+    "web3": "^1.3.4"
+  },
+  "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -10,17 +21,24 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "@types/react-redux": "^7.1.16",
+    "@types/web3": "^1.2.2",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "eslint": "^7.20.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "ganache-cli": "^6.12.2",
+    "prettier": "^2.2.1",
+    "solc": "^0.8.1",
+    "typescript": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ethserve": "mkdir -p ganachedb && ganache-cli --db ganachedb --account=\"0xbfe038810d51b8a788e5f63d2a0822d1f8ef712a7acbbf9877013efb3c5f5514,100\"  --account=\"0xb07210851b10f884f5b4e57a8e76e717cc5cd9b496801cb93dac380747239b0f,100\"   --account=\"0x46c855cb4a30c5630b5884fde176fe6d4b2c26f12c8607452c72ca31c537120e,100\""
   },
   "eslintConfig": {
     "extends": [
