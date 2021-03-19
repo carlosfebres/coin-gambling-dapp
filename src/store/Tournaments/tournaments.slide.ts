@@ -3,7 +3,8 @@ import { Player } from "../Player/player.model";
 import { Tournament, TournamentsReducerState } from "./tournaments.model";
 
 const tournamentInitialState: TournamentsReducerState = {
-  tournaments: [],
+  tournamentAddresses: [],
+  tournaments: {},
 };
 
 const tournamentsSlide = createSlice({
@@ -12,10 +13,12 @@ const tournamentsSlide = createSlice({
   reducers: {
     createTournament: {
       reducer(state, action: PayloadAction<Tournament>) {
-        state.tournaments.push(action.payload);
+        const tournament = action.payload;
+        state.tournaments[tournament.address] = tournament;
       },
       prepare: (tournamentName: Tournament["name"]) => {
         const tournament: Tournament = {
+          address: "123",
           id: new Date().getTime().toString(),
           name: tournamentName,
           players: [],

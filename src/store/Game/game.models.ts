@@ -1,5 +1,3 @@
-import {Player} from "../Player/player.model";
-
 export enum GameStatus {
   NoStarted = 'GAME_NO_STARTED',
   Started = 'GAME_STARTED',
@@ -7,13 +5,22 @@ export enum GameStatus {
 }
 
 export type Game = {
-  players: Player[]
+  address: string;
+  amount: string;
+  minAmount: string;
+  starter: string;
+  winner: string;
+  finished: boolean;
 };
 
 export type GameReducerState = {
-  state: GameStatus;
+  creatingGame: boolean;
+  gameAddresses: string[];
+  games: Record<string, Game>
 };
 
 export const gameReducerInitialState: GameReducerState = {
-  state: GameStatus.NoStarted,
+  creatingGame: false,
+  gameAddresses: [],
+  games: {},
 };
