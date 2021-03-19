@@ -6,23 +6,23 @@ export enum GameStatus {
 
 export type Game = {
   address: string;
-  amount: string;
-  minAmount: string;
-  starter: string;
-  winner: string;
   finished: boolean;
+  withdrew: boolean;
+  gambler: string;
+  winner: string;
+  bitAmount: string;
 };
 
 export type GameReducerState = {
-  betAmount: string;
   creatingGame: boolean;
+  withdrawing: boolean;
   gameAddresses: string[];
   games: Record<string, Game>;
 };
 
 export const gameReducerInitialState: GameReducerState = {
-  betAmount: "0",
   creatingGame: false,
+  withdrawing: false,
   gameAddresses: [],
   games: {},
 };

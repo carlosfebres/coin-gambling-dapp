@@ -1,16 +1,18 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.7.0 <0.8.0;
+pragma solidity >=0.8.0 <0.9.0;
 
 contract Tournament {
     address[] public games;
+    uint public minAmount = 10000;
 
     event newGame(
         address game
     );
 
-    function createGame() public {
-        uint minimum = 1;
-        FlipCoinGame game = new FlipCoinGame(minimum);
+    function createGame() public payable {
+        require(msg.value >= minAmount, 'You have to bet more than the minimum amount');
+        FlipCoinGame game = new FlipCoinGame();
+        game.start{value: msg.value}(msg.sender);
         games.push(address(game));
         emit newGame(address(game));
     }
@@ -21,18 +23,18 @@ contract Tournament {
 }
 
 contract FlipCoinGame {
-
     bool public finished = false;
     bool public withdrew = false;
 
-    address public starter;
-    address public winner;
+    address payable public gambler;
+    address payable public winner;
 
-    uint public minAmount;
-    uint public amount;
+    uint public bitAmount;
 
-    constructor(uint minimun) public {
-        minAmount = minimun;
+    function start(address _gambler) public payable {
+        require(gambler == address(0), "Gambler already set");
+        bitAmount = msg.value;
+        gambler = payable(_gambler);
     }
 
     modifier notFinished {
@@ -40,26 +42,15 @@ contract FlipCoinGame {
         _;
     }
 
-    modifier minimum {
-        require(msg.value >= minAmount, 'You have to bet more than the minimum amount');
-        _;
-    }
-
-    function start() public payable notFinished minimum {
-        require(starter == address(0), "Player already assigned");
-        amount = msg.value;
-        starter = msg.sender;
-    }
-
     // The user who finishes the game is going to pay more gas.
-    function play() public payable notFinished minimum returns (address) {
-        require(starter != address(0), "Starter is not set");
-        require(starter != msg.sender, "Player already in the game");
-        require(msg.value == amount, "You are exceeding the amount");
+    function play() public payable notFinished returns (address) {
+        require(gambler != address(0), "Starter is not set");
+        require(gambler != msg.sender, "Player already in the game");
+        require(msg.value == bitAmount, "You are exceeding the amount");
 
         uint8 winnerIndex = random() % 2;
 
-        winner = winnerIndex == 0 ? msg.sender : starter;
+        winner = winnerIndex == 0 ? payable(msg.sender) : gambler;
         finished = true;
 
         return winner;
@@ -70,7 +61,7 @@ contract FlipCoinGame {
         require(withdrew == false, 'Founds were withdraw');
 
         withdrew = true;
-        msg.sender.transfer(address(this).balance);
+        winner.transfer(address(this).balance);
     }
 
     // Un-safe random function

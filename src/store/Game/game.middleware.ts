@@ -1,6 +1,6 @@
-import {Middleware} from "redux";
+import { Middleware } from "redux";
 
-export const gamesMiddleware: Middleware = (store) => {
+export const gamesMiddleware: Middleware = () => {
   return (next) => {
     return async (action) => {
       await next(action);

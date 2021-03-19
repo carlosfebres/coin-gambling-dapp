@@ -1,9 +1,4 @@
-import {
-  Action,
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Game, gameReducerInitialState } from "./game.models";
 import { getGameContract, tournament } from "../../etherium";
 import { RootState } from "../utils";
@@ -17,28 +12,10 @@ export const fetchGameByAddress = createAsyncThunk<Game, string>(
       address: gameAddress,
       finished: await game.finished(),
       withdrew: await game.withdrew(),
-      starter: await game.starter(),
+      gambler: await game.gambler(),
       winner: await game.winner(),
-      amount: (await game.amount()).toString(),
-      minAmount: (await game.minAmount()).toString(),
+      bitAmount: (await game.bitAmount()).toString(),
     };
-  }
-);
-
-export const startGame = createAsyncThunk(
-  "tournaments/startGame",
-  async (gameAddress: string, store) => {
-    console.log("start game: ", gameAddress);
-    const state = store.getState() as RootState;
-    const gameContract = getGameContract(gameAddress);
-    console.log("start game with: ", state.game.betAmount);
-
-    const transaction = await gameContract.start({
-      value: state.game.betAmount,
-    });
-    await transaction.wait();
-
-    store.dispatch(fetchGameByAddress(gameAddress));
   }
 );
 
@@ -52,9 +29,31 @@ export const fetchGameAddresses = createAsyncThunk(
 export const createGame = createAsyncThunk(
   "tournaments/createGame",
   async (betAmount: string) => {
-    const transaction = await tournament.createGame();
+    const transaction = await tournament.createGame({ value: betAmount });
     await transaction.wait();
-    return betAmount;
+  }
+);
+
+export const withdrawGameFunds = createAsyncThunk(
+  "tournaments/withdrawGameFunds",
+  async (gameAddress: string, store) => {
+    const game = getGameContract(gameAddress);
+    const transaction = await game.withdraw();
+    await transaction.wait();
+    store.dispatch(fetchGameByAddress(gameAddress));
+  }
+);
+
+export const startGamePlay = createAsyncThunk(
+  "tournaments/startGamePlay",
+  async (gameAddress: string, store) => {
+    const state = store.getState() as RootState;
+    const game = getGameContract(gameAddress);
+    const transaction = await game.play({
+      value: state.game.games[gameAddress].bitAmount,
+    });
+    await transaction.wait();
+    store.dispatch(fetchGameByAddress(gameAddress));
   }
 );
 
@@ -80,9 +79,8 @@ export const gameSlide = createSlice({
     builder.addCase(createGame.rejected, (state) => {
       state.creatingGame = false;
     });
-    builder.addCase(createGame.fulfilled, (state, action) => {
+    builder.addCase(createGame.fulfilled, (state) => {
       state.creatingGame = false;
-      state.betAmount = action.payload;
     });
     builder.addCase(
       fetchGameAddresses.fulfilled,
@@ -91,8 +89,14 @@ export const gameSlide = createSlice({
         state.gameAddresses = action.payload;
       }
     );
-    builder.addCase(startGame.fulfilled, (state, action: Action<string>) => {
-      state.betAmount = "0";
+    builder.addCase(withdrawGameFunds.pending, (state) => {
+      state.withdrawing = true;
+    });
+    builder.addCase(withdrawGameFunds.rejected, (state) => {
+      state.withdrawing = false;
+    });
+    builder.addCase(withdrawGameFunds.fulfilled, (state) => {
+      state.withdrawing = false;
     });
   },
 });
