@@ -1,8 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  Action,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { Game, gameReducerInitialState } from "./game.models";
 import { getGameContract, tournament } from "../../etherium";
+import { RootState } from "../utils";
 
-const fetchGameByAddress = createAsyncThunk<Game, string>(
+export const fetchGameByAddress = createAsyncThunk<Game, string>(
   "tournaments/fetchGameByAddress",
   async (gameAddress) => {
     const game = getGameContract(gameAddress);
@@ -18,7 +24,25 @@ const fetchGameByAddress = createAsyncThunk<Game, string>(
     };
   }
 );
-const fetchGameAddresses = createAsyncThunk(
+
+export const startGame = createAsyncThunk(
+  "tournaments/startGame",
+  async (gameAddress: string, store) => {
+    console.log("start game: ", gameAddress);
+    const state = store.getState() as RootState;
+    const gameContract = getGameContract(gameAddress);
+    console.log("start game with: ", state.game.betAmount);
+
+    const transaction = await gameContract.start({
+      value: state.game.betAmount,
+    });
+    await transaction.wait();
+
+    store.dispatch(fetchGameByAddress(gameAddress));
+  }
+);
+
+export const fetchGameAddresses = createAsyncThunk(
   "tournaments/fetchGameAddresses",
   () => {
     return tournament.getGames();
@@ -27,10 +51,10 @@ const fetchGameAddresses = createAsyncThunk(
 
 export const createGame = createAsyncThunk(
   "tournaments/createGame",
-  async () => {
+  async (betAmount: string) => {
     const transaction = await tournament.createGame();
-    const wait = await transaction.wait();
-    console.log({ transaction, wait });
+    await transaction.wait();
+    return betAmount;
   }
 );
 
@@ -38,14 +62,17 @@ export const gameSlide = createSlice({
   name: "game",
   initialState: gameReducerInitialState,
   reducers: {
-    setGamesAddresses(state, action: PayloadAction<string[]>) {
-      state.gameAddresses = action.payload;
+    stopCreatingGame(state) {
+      state.creatingGame = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGameByAddress.fulfilled, (state, action) => {
       const game = action.payload;
       state.games[game.address] = game;
+      if (!state.gameAddresses.includes(game.address)) {
+        state.gameAddresses.push(game.address);
+      }
     });
     builder.addCase(createGame.pending, (state) => {
       state.creatingGame = true;
@@ -53,10 +80,9 @@ export const gameSlide = createSlice({
     builder.addCase(createGame.rejected, (state) => {
       state.creatingGame = false;
     });
-    builder.addCase(createGame.fulfilled, (state) => {
+    builder.addCase(createGame.fulfilled, (state, action) => {
       state.creatingGame = false;
-      // fetchGameAddresses is not called, dispatch action after action
-      fetchGameAddresses();
+      state.betAmount = action.payload;
     });
     builder.addCase(
       fetchGameAddresses.fulfilled,
@@ -65,18 +91,12 @@ export const gameSlide = createSlice({
         state.gameAddresses = action.payload;
       }
     );
+    builder.addCase(startGame.fulfilled, (state, action: Action<string>) => {
+      state.betAmount = "0";
+    });
   },
 });
 
-const { actions, reducer } = gameSlide;
-export const { setGamesAddresses } = actions;
-
-// // TODO: use createAsyncThunk
-// const fetchGameAddresses = () => {
-//   return async (dispatch: Dispatch) => {
-//     const gamesAddresses = await tournament.getGames();
-//     dispatch(setGamesAddresses(gamesAddresses));
-//   };
-// };
-
-export { reducer as gameReducer, fetchGameByAddress, fetchGameAddresses };
+export const { reducer, actions } = gameSlide;
+export { reducer as gameReducer };
+export const { stopCreatingGame } = actions;

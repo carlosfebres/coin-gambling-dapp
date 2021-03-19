@@ -35,7 +35,10 @@ export const GameItem: React.FC<GameProps> = ({ address }) => {
     <Card>
       <CardContent>
         <Typography>Game Address:</Typography>
-        <Typography>{game.address}</Typography>
+        <Typography style={{ fontSize: 11 }}>{game.address}</Typography>
+        <Typography>Starter:</Typography>
+        <Typography style={{ fontSize: 11 }}>{game.starter}</Typography>
+        <Typography>Amount: {game.amount}</Typography>
       </CardContent>
       <CardActions>
         <Button size="small" color="primary" onClick={() => start()}>

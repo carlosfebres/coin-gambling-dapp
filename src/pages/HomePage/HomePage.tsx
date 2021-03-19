@@ -6,6 +6,7 @@ import { getGameAddresses } from "../../store/Game/game.selectors";
 import { useDispatch } from "react-redux";
 import { fetchGameAddresses } from "../../store/Game/game.slide";
 import { Container, makeStyles } from "@material-ui/core";
+import {useListeners} from "../../hooks/useListeners";
 
 const useStyles = makeStyles({
   container: {
@@ -19,6 +20,8 @@ export const HomePage = () => {
 
   const gameAddresses = useRootSelector(getGameAddresses);
   const dispatch = useDispatch();
+
+  useListeners();
 
   useEffect(() => {
     dispatch(fetchGameAddresses());

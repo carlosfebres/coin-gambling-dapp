@@ -4,11 +4,15 @@ pragma solidity >=0.7.0 <0.8.0;
 contract Tournament {
     address[] public games;
 
-    function createGame() public payable returns (address) {
+    event newGame(
+        address game
+    );
+
+    function createGame() public {
         uint minimum = 1;
         FlipCoinGame game = new FlipCoinGame(minimum);
         games.push(address(game));
-        return address(game);
+        emit newGame(address(game));
     }
 
     function getGames() public view returns (address[] memory) {

@@ -1,15 +1,22 @@
 [
   {
-    "inputs": [],
-    "name": "createGame",
-    "outputs": [
+    "anonymous": false,
+    "inputs": [
       {
+        "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "game",
         "type": "address"
       }
     ],
-    "stateMutability": "payable",
+    "name": "newGame",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "createGame",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
