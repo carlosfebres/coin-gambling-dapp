@@ -21,6 +21,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@truffle/hdwallet-provider": "^1.2.3",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
@@ -28,19 +29,24 @@
     "@types/react-redux": "^7.1.16",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
+    "dotenv": "^8.2.0",
     "eslint": "^7.20.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "hardhat": "^2.1.1",
     "prettier": "^2.2.1",
     "solc": "^0.8.1",
+    "truffle": "^5.2.4",
     "typescript": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy:rinkeby": "truffle migrate --network rinkeby",
+    "deploy:local": "npx hardhat run --network localhost deploy.js",
+    "run:network": "npx hardhat node"
   },
   "eslintConfig": {
     "extends": [

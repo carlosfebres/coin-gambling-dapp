@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { signer, tournament } from "../etherium";
+import { tournament } from "../etherium";
 import { fetchGameByAddress, stopCreatingGame } from "../store/Game/game.slide";
 import { createGameDialogClose } from "../store/Dialogs/dialogs.slide";
 import { useEffect } from "react";

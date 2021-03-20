@@ -1,4 +1,4 @@
-import {Action, createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TournamentsReducerState } from "./tournaments.model";
 import { signer } from "../../etherium";
 

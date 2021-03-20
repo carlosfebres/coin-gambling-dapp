@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Game } from "../store/Game/game.models";
 import { useDispatch } from "react-redux";
 import { fetchGameByAddress } from "../store/Game/game.slide";
@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useGameContract } from "../hooks/useGameContract";
-import { signer } from "../etherium";
 import { getAllTournaments } from "../store/Tournaments/tournaments.selectors";
 
 type GameProps = {
