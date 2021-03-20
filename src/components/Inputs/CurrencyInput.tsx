@@ -38,7 +38,11 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
   const [unit, setUnit] = useState<EtherUnit>(EtherUnit.wei);
 
   useEffect(() => {
-    onChange(ethers.utils.parseUnits(amount || "0", unit).toString());
+    try {
+      onChange(ethers.utils.parseUnits(amount || "0", unit).toString());
+    } catch(err) {
+      setAmount('0');
+    }
   }, [amount, unit]);
 
   return (
