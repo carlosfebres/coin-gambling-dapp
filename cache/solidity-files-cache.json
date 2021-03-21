@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\development\\d0rg\\flip-bets\\contracts\\Tournament.sol": {
-      "lastModificationDate": 1616140604827,
-      "contentHash": "a65a9f22d01080bfa69ec072b04d0b48",
-      "sourceName": "contracts/Tournament.sol",
+    "C:\\development\\d0rg\\flip-bets\\contracts\\Casino.sol": {
+      "lastModificationDate": 1616230241666,
+      "contentHash": "bd9a6612200024c0c437b4b84950f0ca",
+      "sourceName": "contracts/Casino.sol",
       "solcConfig": {
         "version": "0.8.2",
         "settings": {
@@ -32,8 +32,9 @@
         ">=0.8.0 <0.9.0"
       ],
       "artifacts": [
-        "FlipCoinGame",
-        "Tournament"
+        "Casino",
+        "Gambler",
+        "Game"
       ]
     }
   }
