@@ -1,15 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Button } from "@material-ui/core";
 import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slide";
 import { useRootSelector } from "../../store/utils";
 import { getIsCreatingGame } from "../../store/Game/game.selectors";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import Toolbar from "@material-ui/core/Toolbar";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     fabButton: {
       position: "absolute",
