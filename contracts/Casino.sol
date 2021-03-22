@@ -3,43 +3,65 @@ pragma solidity >=0.8.0 <0.9.0;
 
 contract Casino {
     Game[] public games;
-    Gambler[] public gamblers;
-    mapping(Gambler => bool) public gamblerRegistered;
+
+    Gambler[] public gamblersRegistered;
+    mapping(address => Gambler) public gamblers;
 
     event newGame(
         Game game
     );
 
+    event gamblerRegistered(
+        Gambler gambler
+    );
+
+    //
+    // Games Management
+    //
+
     function createGame(Gambler gambler) public payable {
         Game game = new Game();
 
-        // Foward bit to the game contract
+        // send bet to the game contract
         game.start{value: msg.value}(gambler);
 
         // Store game in log
         games.push(game);
-        registerGambler(gambler);
 
         emit newGame(game);
-    }
-
-    function registerGambler(Gambler gambler) public {
-        if (gamblerRegistered[gambler] == false) {
-            gamblers.push(gambler);
-            gamblerRegistered[gambler] = true;
-        }
     }
 
     function getGames() public view returns (Game[] memory) {
         return games;
     }
 
-    function getGamblers() public view returns (Gambler[] memory) {
-        return gamblers;
-    }
-
     function getGameCount() public view returns (uint256) {
         return games.length;
+    }
+
+    //
+    // Gamblers Management
+    //
+
+    function getGambler(address gamblerAddress) public view returns (Gambler) {
+        Gambler gambler = gamblers[gamblerAddress];
+        require(address(gambler) != address(0), 'Gambler not found. Please consider registering');
+        return gambler;
+    }
+
+    function registerGambler(string memory name) public {
+        require(address(gamblers[msg.sender]) == address(0), 'Gambler already registered');
+
+        Gambler gambler = new Gambler(msg.sender, name);
+
+        gamblersRegistered.push(gambler);
+        gamblers[msg.sender] = gambler;
+
+        emit gamblerRegistered(gambler);
+    }
+
+    function getGamblers() public view returns (Gambler[] memory) {
+        return gamblersRegistered;
     }
 }
 
@@ -101,8 +123,10 @@ contract Game {
 
 
 contract Gambler {
-    address[] public gamblerGames;
-    address[] public gamesWon;
+    Game[] public gamblerGames;
+    Game[] public gamesWon;
+
+    uint256 public amountWon = 0;
 
     address public addr;
     string public name;
@@ -113,10 +137,14 @@ contract Gambler {
         name = gamblerName;
     }
 
+    function registerGame(Game game) public {
+        gamblerGames.push(game);
+    }
+
     function receivePrize(Game gameWon) public payable {
         require(msg.value > 0, 'no prize received');
-
-        gamesWon.push(address(gameWon));
+        amountWon += msg.value;
+        gamesWon.push(gameWon);
     }
 
     function withdraw() public {
@@ -133,5 +161,13 @@ contract Gambler {
 
     function numGamesWon() public view returns (uint256) {
         return gamesWon.length;
+    }
+
+    function getGamesWon() public view returns (Game[] memory) {
+        return gamesWon;
+    }
+
+    function getGames() public view returns (Game[] memory) {
+        return gamblerGames;
     }
 }

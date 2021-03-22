@@ -1,19 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { dialogsReducerInitialState } from "./dialogs.model";
 
 export const dialogsSlide = createSlice({
   name: "dialogs",
   initialState: dialogsReducerInitialState,
   reducers: {
-    createGameDialogOpen(state) {
-      state.createGameDialogOpen = true;
-    },
-    createGameDialogClose(state) {
-      state.createGameDialogOpen = false;
+    setCreateGameDialog(state, action: PayloadAction<boolean>) {
+      state.createGameDialogOpen = action.payload;
     },
   },
 });
 
 const { actions, reducer } = dialogsSlide;
-export const { createGameDialogClose, createGameDialogOpen } = actions;
+export const { setCreateGameDialog } = actions;
 export {reducer as dialogsReducer}

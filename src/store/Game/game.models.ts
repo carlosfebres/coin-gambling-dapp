@@ -1,14 +1,8 @@
-export enum GameStatus {
-  NoStarted = "GAME_NO_STARTED",
-  Started = "GAME_STARTED",
-  Ended = "GAME_ENDED",
-}
-
 export type Game = {
   address: string;
   finished: boolean;
-  withdrew: boolean;
-  gambler: string;
+  player1: string;
+  player2: string;
   winner: string;
   bitAmount: string;
 };

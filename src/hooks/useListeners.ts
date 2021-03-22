@@ -1,22 +1,34 @@
 import { useDispatch } from "react-redux";
-import { tournament } from "../etherium";
+import { casino } from "../etherium";
 import { fetchGameByAddress, stopCreatingGame } from "../store/Game/game.slide";
-import { createGameDialogClose } from "../store/Dialogs/dialogs.slide";
 import { useEffect } from "react";
-import { fetchPlayerAddress } from "../store/Tournaments/tournaments.slide";
+import {
+  fetchAddress,
+  fetchGambler,
+  setNeedsRegistration,
+} from "../store/Gambler/gambler.slide";
+import { setCreateGameDialog } from "../store/Dialogs/dialogs.slide";
 
 export const useListeners = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    tournament.on("newGame", async (gameAddress: string) => {
-      dispatch(createGameDialogClose());
+    casino.on("newGame", async (gameAddress: string) => {
+      console.log('new game event');
+      dispatch(setCreateGameDialog(false));
       dispatch(fetchGameByAddress(gameAddress));
       dispatch(stopCreatingGame());
     });
 
+    casino.on("gamblerRegistered", async (gamblerAddress: string) => {
+      console.log('gambler registered event');
+      dispatch(setNeedsRegistration(false));
+      dispatch(fetchGambler(gamblerAddress));
+    });
+
     (window as any).ethereum.on("accountsChanged", () => {
-      dispatch(fetchPlayerAddress());
+      console.log('account changed event');
+      dispatch(fetchAddress());
     });
   }, []);
 };

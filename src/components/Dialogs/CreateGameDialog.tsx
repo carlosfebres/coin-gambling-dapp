@@ -11,10 +11,10 @@ import {
 import { useRootSelector } from "../../store/utils";
 import { getIsCreateGameDialogOpen } from "../../store/Dialogs/dialogs.selector";
 import { useDispatch } from "react-redux";
-import { createGameDialogClose } from "../../store/Dialogs/dialogs.slide";
 import { CurrencyInput } from "../Inputs/CurrencyInput";
 import { getIsCreatingGame } from "../../store/Game/game.selectors";
 import { createGame } from "../../store/Game/game.slide";
+import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slide";
 
 export const CreateGameDialog = () => {
   const isCreateGameDialogOpen = useRootSelector(getIsCreateGameDialogOpen);
@@ -23,7 +23,7 @@ export const CreateGameDialog = () => {
   const dispatch = useDispatch();
   const [betAmount, setBetAmount] = useState<string>("0");
 
-  const handleClose = () => dispatch(createGameDialogClose());
+  const handleClose = () => dispatch(setCreateGameDialog(false));
   const handleCreation = () => {
     dispatch(createGame(betAmount));
   };

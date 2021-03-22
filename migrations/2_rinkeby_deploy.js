@@ -1,5 +1,5 @@
-const tournament = artifacts.require("tournament");
+const casino = artifacts.require("casino");
 
 module.exports = function (deployer, network, accounts) {
-  deployer.deploy(tournament, { from: accounts[0] });
+  deployer.deploy(casino, { from: accounts[0] });
 };

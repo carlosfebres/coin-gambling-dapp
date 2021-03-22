@@ -8,7 +8,7 @@ async function main() {
   await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Tournament");
+  const Greeter = await ethers.getContractFactory("Casino");
   const greeter = await Greeter.deploy();
 
   await greeter.deployed();

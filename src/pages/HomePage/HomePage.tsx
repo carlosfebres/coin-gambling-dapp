@@ -1,20 +1,41 @@
 import React, { useEffect } from "react";
-import { GamesList } from "../../components/Tournaments/GamesList";
-import { CreateGameForm } from "../../components/Tournaments/CreateGameForm";
 import { useRootSelector } from "../../store/utils";
 import { getGameAddresses } from "../../store/Game/game.selectors";
 import { useDispatch } from "react-redux";
 import { fetchGameAddresses } from "../../store/Game/game.slide";
 import { Container, makeStyles } from "@material-ui/core";
-import {useListeners} from "../../hooks/useListeners";
-import {fetchPlayerAddress} from "../../store/Tournaments/tournaments.slide";
+import { useListeners } from "../../hooks/useListeners";
+import { fetchAddress } from "../../store/Gambler/gambler.slide";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import { CreateGameFabButton } from "../../components/Games/CreateGameFabButton";
+import { GamesList } from "../../components/Games/GamesList";
+import { createStyles, Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
-  container: {
-    backgroundColor: "rgba(0,0,0,.1)",
-    padding: 32,
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    text: {
+      padding: theme.spacing(2, 2, 0),
+    },
+    appBar: {
+      top: "auto",
+      bottom: 0,
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    container: {
+      marginTop: theme.spacing(2),
+    },
+  })
+);
 
 export const HomePage = () => {
   const classes = useStyles();
@@ -25,16 +46,26 @@ export const HomePage = () => {
   useListeners();
 
   useEffect(() => {
-    dispatch(fetchPlayerAddress());
+    dispatch(fetchAddress());
     dispatch(fetchGameAddresses());
   }, []);
 
   return (
-    <Container maxWidth="md" className={classes.container}>
-      <CreateGameForm />
-      <div style={{ marginTop: 16 }}>
-        <GamesList gameAddress={gameAddresses} />
-      </div>
-    </Container>
+    <React.Fragment>
+      <CssBaseline />
+      <Container className={classes.container}>
+        <Paper>
+          <Typography className={classes.text} variant="h5" gutterBottom>
+            Games
+          </Typography>
+          <GamesList gameAddress={gameAddresses} />
+        </Paper>
+      </Container>
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
+        <Toolbar variant="dense">
+          <CreateGameFabButton />
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   );
 };
