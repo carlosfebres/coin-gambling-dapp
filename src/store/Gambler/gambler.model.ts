@@ -7,10 +7,12 @@ export type Gambler = {
 
 export type GamblerReducerState = {
   needsRegister: boolean;
+  creatingGambler: boolean;
   userAddress?: string;
   gambler?: Gambler;
 };
 
 export const GAMBLER_REDUCER_INITIAL_STATE: GamblerReducerState = {
   needsRegister: false,
+  creatingGambler: false,
 };

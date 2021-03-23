@@ -17,6 +17,7 @@ import { getIsCreatingGame } from "../../store/Game/game.selectors";
 import { createGame } from "../../store/Game/game.slide";
 import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slide";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { Transition } from "./DialogTransition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,15 +27,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dialogTitle: {
       padding: theme.spacing(2, 2, 2, 3),
-      backgroundColor: theme.palette.secondary.dark,
       color: theme.palette.text.secondary,
+      backgroundColor: "rgba(0,0,0,.8)",
     },
     dialogContent: {
       padding: theme.spacing(2, 2, 2, 2),
     },
     dialogActions: {
       padding: theme.spacing(1, 3, 1, 1),
-      backgroundColor: theme.palette.secondary.dark,
+      backgroundColor: "rgba(0,0,0,.8)",
     },
   })
 );
@@ -57,6 +58,7 @@ export const CreateGameDialog = () => {
     <Dialog
       open={isCreateGameDialogOpen}
       onClose={handleClose}
+      TransitionComponent={Transition}
       PaperProps={{ className: styles.dialog }}
     >
       <DialogTitle className={styles.dialogTitle}>Create Game</DialogTitle>

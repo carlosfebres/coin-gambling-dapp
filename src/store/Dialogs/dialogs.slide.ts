@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { dialogsReducerInitialState } from "./dialogs.model";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Alert, dialogsReducerInitialState } from "./dialogs.model";
 
 export const dialogsSlide = createSlice({
   name: "dialogs",
@@ -8,9 +8,15 @@ export const dialogsSlide = createSlice({
     setCreateGameDialog(state, action: PayloadAction<boolean>) {
       state.createGameDialogOpen = action.payload;
     },
+    showAlert(state, action: PayloadAction<Alert>) {
+      state.alert = action.payload;
+    },
+    hideAlert(state) {
+      state.alert = undefined;
+    },
   },
 });
 
 const { actions, reducer } = dialogsSlide;
-export const { setCreateGameDialog } = actions;
-export {reducer as dialogsReducer}
+export const { setCreateGameDialog, showAlert, hideAlert } = actions;
+export { reducer as dialogsReducer };

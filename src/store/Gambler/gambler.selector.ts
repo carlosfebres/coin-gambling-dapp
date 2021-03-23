@@ -11,3 +11,7 @@ export function getGamblerAddress(state: RootState) {
 export function getUserAddress(state: RootState) {
   return state.gambler.userAddress;
 }
+
+export function getCreatingGambler(state: RootState) {
+  return state.gambler.creatingGambler;
+}

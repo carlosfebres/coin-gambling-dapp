@@ -1,5 +1,9 @@
-import {RootState} from "../utils";
+import { RootState } from "../utils";
 
-export const getIsCreateGameDialogOpen = (state: RootState) => {
+export function getIsCreateGameDialogOpen(state: RootState) {
   return state.dialogs.createGameDialogOpen;
-};
+}
+
+export function getAlert(state: RootState) {
+  return state.dialogs.alert;
+}

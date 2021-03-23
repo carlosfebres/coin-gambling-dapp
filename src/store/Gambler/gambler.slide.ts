@@ -39,14 +39,13 @@ const gamblerSlide = createSlice({
   name: "gambler",
   initialState: GAMBLER_REDUCER_INITIAL_STATE,
   reducers: {
-    setNeedsRegistration(state, action: PayloadAction<boolean>) {
-      state.needsRegister = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(
       fetchGambler.fulfilled,
       (state, action: PayloadAction<Gambler>) => {
+        state.needsRegister = false;
+        state.creatingGambler = false;
         state.gambler = action.payload;
       }
     );
@@ -62,12 +61,15 @@ const gamblerSlide = createSlice({
     builder.addCase(fetchGambler.rejected, () => {
       alert("error fetching gambler contract");
     });
-    builder.addCase(createGambler.rejected, () => {
+    builder.addCase(createGambler.pending, (state) => {
+      state.creatingGambler = true;
+    });
+    builder.addCase(createGambler.rejected, (state) => {
+      state.creatingGambler = false;
       alert("error creating gambler contract");
     });
   },
 });
 
-const { reducer, actions } = gamblerSlide;
+const { reducer } = gamblerSlide;
 export { reducer as gamblerReducer };
-export const { setNeedsRegistration } = actions;
