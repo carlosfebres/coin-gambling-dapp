@@ -4,7 +4,7 @@ export type Game = {
   player1: string;
   player2: string;
   winner: string;
-  bitAmount: string;
+  betAmount: string;
 };
 
 export type GameReducerState = {

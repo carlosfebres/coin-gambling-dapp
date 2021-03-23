@@ -26,6 +26,7 @@ export const RegisterDialog = () => {
     dispatch(createGambler(name));
   };
 
+  // TODO: Add loader
   return (
     <Dialog open={needsRegister}>
       <DialogTitle>Register</DialogTitle>
@@ -34,6 +35,7 @@ export const RegisterDialog = () => {
           Join our friendly, ambitious, and competitive community
         </DialogContentText>
         <TextField
+          fullWidth
           required
           label="Name"
           placeholder="Enter your name here"

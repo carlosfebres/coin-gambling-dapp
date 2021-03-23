@@ -1,19 +1,17 @@
-import React, { useEffect } from "react";
-import { useRootSelector } from "../../store/utils";
-import { getGameAddresses } from "../../store/Game/game.selectors";
-import { useDispatch } from "react-redux";
-import { fetchGameAddresses } from "../../store/Game/game.slide";
-import { Container, makeStyles } from "@material-ui/core";
-import { useListeners } from "../../hooks/useListeners";
-import { fetchAddress } from "../../store/Gambler/gambler.slide";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
+import React, {useEffect} from "react";
+import {useRootSelector} from "../../store/utils";
+import {getGameAddresses} from "../../store/Game/game.selectors";
+import {useDispatch} from "react-redux";
+import {fetchGameAddresses} from "../../store/Game/game.slide";
+import {Container, makeStyles} from "@material-ui/core";
+import {useListeners} from "../../hooks/useListeners";
+import {fetchAddress} from "../../store/Gambler/gambler.slide";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { CreateGameFabButton } from "../../components/Games/CreateGameFabButton";
-import { GamesList } from "../../components/Games/GamesList";
-import { createStyles, Theme } from "@material-ui/core/styles";
+import {CreateGameFabButton} from "../../components/Games/CreateGameFabButton";
+import {GamesList} from "../../components/Games/GamesList";
+import {createStyles, Theme} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,9 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     grow: {
       flexGrow: 1,
-    },
-    container: {
-      marginTop: theme.spacing(2),
     },
   })
 );
@@ -48,14 +43,16 @@ export const HomePage = () => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <Container className={classes.container}>
-        <Paper>
-          <Typography className={classes.text} variant="h5" gutterBottom>
-            Games
-          </Typography>
-          <GamesList gameAddress={gameAddresses} />
-        </Paper>
+      <Container>
+        <Typography
+          color="textSecondary"
+          className={classes.text}
+          variant="h5"
+          gutterBottom
+        >
+          Games
+        </Typography>
+        <GamesList gameAddress={gameAddresses} />
       </Container>
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar variant="dense">

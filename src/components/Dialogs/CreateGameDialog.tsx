@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   Button,
+  createStyles,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,8 +16,32 @@ import { CurrencyInput } from "../Inputs/CurrencyInput";
 import { getIsCreatingGame } from "../../store/Game/game.selectors";
 import { createGame } from "../../store/Game/game.slide";
 import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slide";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    dialog: {
+      backgroundColor: theme.palette.secondary.main,
+      borderRadius: 16,
+    },
+    dialogTitle: {
+      padding: theme.spacing(2, 2, 2, 3),
+      backgroundColor: theme.palette.secondary.dark,
+      color: theme.palette.text.secondary,
+    },
+    dialogContent: {
+      padding: theme.spacing(2, 2, 2, 2),
+    },
+    dialogActions: {
+      padding: theme.spacing(1, 3, 1, 1),
+      backgroundColor: theme.palette.secondary.dark,
+    },
+  })
+);
 
 export const CreateGameDialog = () => {
+  const styles = useStyles();
+
   const isCreateGameDialogOpen = useRootSelector(getIsCreateGameDialogOpen);
   const isCreatingGame = useRootSelector(getIsCreatingGame);
 
@@ -29,9 +54,13 @@ export const CreateGameDialog = () => {
   };
 
   return (
-    <Dialog open={isCreateGameDialogOpen} onClose={handleClose}>
-      <DialogTitle>Create Game</DialogTitle>
-      <DialogContent>
+    <Dialog
+      open={isCreateGameDialogOpen}
+      onClose={handleClose}
+      PaperProps={{ className: styles.dialog }}
+    >
+      <DialogTitle className={styles.dialogTitle}>Create Game</DialogTitle>
+      <DialogContent className={styles.dialogContent}>
         <DialogContentText>
           Create a game to bet with some player, having a 50/50 provability of
           winning (or losing :D).
@@ -41,11 +70,17 @@ export const CreateGameDialog = () => {
           onChange={(total) => setBetAmount(total)}
         />
       </DialogContent>
-      <DialogActions>
-        <Button disabled={isCreatingGame} onClick={handleClose} color="primary">
+      <DialogActions className={styles.dialogActions}>
+        <Button
+          variant="contained"
+          disabled={isCreatingGame}
+          onClick={handleClose}
+          color="primary"
+        >
           Cancel
         </Button>
         <Button
+          variant="contained"
           disabled={isCreatingGame}
           onClick={handleCreation}
           color="primary"

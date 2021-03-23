@@ -73,7 +73,7 @@ contract Game {
     );
 
     uint public minAmount = 10000;
-    uint public bitAmount;
+    uint public betAmount;
 
     bool public finished = false;
 
@@ -90,14 +90,14 @@ contract Game {
     function start(Gambler gambler) public payable {
         require(msg.value >= minAmount, 'You have to bet more than the minimum amount');
         player1 = gambler;
-        bitAmount = msg.value;
+        betAmount = msg.value;
     }
 
     // The user who finishes the game is going to pay more gas.
     function play(Gambler gambler) public payable notFinished {
         require(address(player1) != address(0), "Starter is not set");
         require(player1.addr() != gambler.addr(), "Player already in the game");
-        require(msg.value == bitAmount, "You have to send the bit amount");
+        require(msg.value == betAmount, "You have to send the bet amount");
 
         finished = true;
         player2 = gambler;

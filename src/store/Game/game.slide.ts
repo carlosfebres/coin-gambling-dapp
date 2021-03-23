@@ -15,7 +15,7 @@ export const fetchGameByAddress = createAsyncThunk<Game, string>(
       player1: await game.player1(),
       player2: await game.player2(),
       winner: await game.winner(),
-      bitAmount: (await game.bitAmount()).toString(),
+      betAmount: (await game.betAmount()).toString(),
     };
   }
 );
@@ -62,7 +62,7 @@ export const startGamePlay = createAsyncThunk(
 
     console.log({ gameContract, gamblerAddress });
     const transaction = await gameContract.play(gamblerAddress, {
-      value: game.bitAmount,
+      value: game.betAmount,
     });
     await transaction.wait();
 

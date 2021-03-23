@@ -11,15 +11,17 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
       alignItems: "center",
-      backgroundColor: "rgba(180,180,180,.1)",
+      backgroundColor: "rgba(10,10,10,.5)",
     },
     input: {
-      padding: "2px 0",
+      padding: theme.spacing(0, 0, 0, 1),
       marginLeft: theme.spacing(1),
       flex: 1,
+      color: theme.palette.text.secondary,
     },
     select: {
       padding: "2px 0",
+      color: theme.palette.text.secondary,
     },
   })
 );
@@ -40,8 +42,8 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
   useEffect(() => {
     try {
       onChange(ethers.utils.parseUnits(amount || "0", unit).toString());
-    } catch(err) {
-      setAmount('0');
+    } catch (err) {
+      setAmount("0");
     }
   }, [amount, unit]);
 
