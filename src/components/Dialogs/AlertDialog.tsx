@@ -89,7 +89,7 @@ export const AlertDialog = () => {
     <Dialog open={true} TransitionComponent={Transition}>
       <DialogTitle className={styles.dialogTitle}>
         <Grid container direction="row" alignItems="center" spacing={1}>
-          <Grid item alignItems="center" style={{ display: "flex" }}>
+          <Grid item style={{ display: "flex" }}>
             <AlertTitleIcon type={alert.type} />
           </Grid>
           <Grid item>{alert.title}</Grid>

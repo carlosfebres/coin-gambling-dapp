@@ -10,19 +10,16 @@ export const useListeners = () => {
 
   useEffect(() => {
     casino.on("newGame", async (gameAddress: string) => {
-      console.log("new game event");
       dispatch(setCreateGameDialog(false));
       dispatch(fetchGameByAddress(gameAddress));
       dispatch(stopCreatingGame());
     });
 
     casino.on("gamblerRegistered", async (gamblerAddress: string) => {
-      console.log("gambler registered event");
       dispatch(fetchGambler(gamblerAddress));
     });
 
     (window as any).ethereum.on("accountsChanged", () => {
-      console.log("account changed event");
       dispatch(fetchAddress());
     });
   }, []);

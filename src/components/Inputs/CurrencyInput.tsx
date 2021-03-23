@@ -37,7 +37,7 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
 }) => {
   const classes = useStyles();
   const [amount, setAmount] = useState("0");
-  const [unit, setUnit] = useState<EtherUnit>(EtherUnit.wei);
+  const [unit, setUnit] = useState<EtherUnit>(EtherUnit.ether);
 
   useEffect(() => {
     try {

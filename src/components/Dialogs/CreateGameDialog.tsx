@@ -22,7 +22,6 @@ import { Transition } from "./DialogTransition";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     dialog: {
-      backgroundColor: theme.palette.secondary.main,
       borderRadius: 16,
     },
     dialogTitle: {
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "rgba(0,0,0,.8)",
     },
     dialogContent: {
-      padding: theme.spacing(2, 2, 2, 2),
+      padding: theme.spacing(4, 2),
     },
     dialogActions: {
       padding: theme.spacing(1, 3, 1, 1),
@@ -63,7 +62,7 @@ export const CreateGameDialog = () => {
     >
       <DialogTitle className={styles.dialogTitle}>Create Game</DialogTitle>
       <DialogContent className={styles.dialogContent}>
-        <DialogContentText>
+        <DialogContentText color="textPrimary">
           Create a game to bet with some player, having a 50/50 provability of
           winning (or losing :D).
         </DialogContentText>

@@ -1,9 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Alert, dialogsReducerInitialState } from "./dialogs.model";
+import {
+  Alert,
+  AlertType,
+  DIALOGS_REDUCER_INITIAL_STATE,
+} from "./dialogs.model";
+import { createGambler } from "../Gambler/gambler.slide";
 
 export const dialogsSlide = createSlice({
   name: "dialogs",
-  initialState: dialogsReducerInitialState,
+  initialState: DIALOGS_REDUCER_INITIAL_STATE,
   reducers: {
     setCreateGameDialog(state, action: PayloadAction<boolean>) {
       state.createGameDialogOpen = action.payload;

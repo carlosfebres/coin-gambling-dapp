@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Game, gameReducerInitialState } from "./game.models";
-import { getGameContract, casino } from "../../etherium";
+import { casino, getGameContract } from "../../etherium";
 import { RootState } from "../utils";
 import { getGamblerAddress } from "../Gambler/gambler.selector";
 import { getGameByAddress } from "./game.selectors";
+import { formatEthersReturnMessage } from "../../shared/utils";
 
 export const fetchGameByAddress = createAsyncThunk<Game, string>(
   "game/fetchGameByAddress",
@@ -30,10 +31,15 @@ export const createGame = createAsyncThunk(
   async (betAmount: string, store) => {
     const state = store.getState() as RootState;
     const gamblerAddress = getGamblerAddress(state);
-    const transaction = await casino.createGame(gamblerAddress, {
-      value: betAmount,
-    });
-    await transaction.wait();
+    try {
+      const transaction = await casino.createGame(gamblerAddress, {
+        value: betAmount,
+      });
+      await transaction.wait();
+    } catch (error) {
+      const message = error.data?.message || error.message;
+      throw new Error(formatEthersReturnMessage(message));
+    }
   }
 );
 
@@ -90,9 +96,6 @@ export const gameSlide = createSlice({
       state.creatingGame = true;
     });
     builder.addCase(createGame.rejected, (state) => {
-      state.creatingGame = false;
-    });
-    builder.addCase(createGame.fulfilled, (state) => {
       state.creatingGame = false;
     });
     builder.addCase(

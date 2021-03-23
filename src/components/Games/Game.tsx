@@ -26,11 +26,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       marginTop: theme.spacing(2),
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: "#263238",
       borderRadius: 16,
     },
     moneyIcon: {
       color: "rgb(50,205,50)",
+    },
+    walletIcon: {
+      color: "rgb(255,255,255)",
     },
   })
 );
@@ -70,15 +73,17 @@ export const GameItem: React.FC<GameProps> = ({ address }) => {
     <React.Fragment>
       <ListItem className={styles.container}>
         <ListItemAvatar>
-          <Avatar>
-            {game.finished ? (
-              <WalletIcon fontSize="large" />
-            ) : (
-              <MoneyIcon className={styles.moneyIcon} fontSize="large" />
-            )}
-          </Avatar>
+          {game.finished ? (
+            <WalletIcon className={styles.walletIcon} fontSize="large" />
+          ) : (
+            <MoneyIcon className={styles.moneyIcon} fontSize="large" />
+          )}
         </ListItemAvatar>
-        <ListItemText primary={`${formattedBetAmount} eth`} secondary={secondaryText} />
+        <ListItemText
+          primaryTypographyProps={{ style: { color: "white" } }}
+          primary={`${formattedBetAmount} eth`}
+          secondary={secondaryText}
+        />
         {!imGambler && !game.finished ? (
           <ListItemSecondaryAction>
             <IconButton onClick={play} edge="end" aria-label="play">

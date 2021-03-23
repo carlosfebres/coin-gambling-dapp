@@ -9,7 +9,7 @@ export const fetchAddress = createAsyncThunk("gambler/fetchAddress", () =>
 export const createGambler = createAsyncThunk(
   "gambler/createGambler",
   async (name: string) => {
-    await casino.registerGambler(name)
+    await casino.registerGambler(name);
   }
 );
 
@@ -38,8 +38,7 @@ export const fetchGambler = createAsyncThunk(
 const gamblerSlide = createSlice({
   name: "gambler",
   initialState: GAMBLER_REDUCER_INITIAL_STATE,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
       fetchGambler.fulfilled,
@@ -66,7 +65,6 @@ const gamblerSlide = createSlice({
     });
     builder.addCase(createGambler.rejected, (state) => {
       state.creatingGambler = false;
-      alert("error creating gambler contract");
     });
   },
 });

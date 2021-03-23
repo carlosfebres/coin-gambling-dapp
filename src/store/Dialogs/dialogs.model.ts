@@ -15,11 +15,6 @@ type DialogReducerState = {
   alert?: Alert;
 };
 
-export const dialogsReducerInitialState: DialogReducerState = {
+export const DIALOGS_REDUCER_INITIAL_STATE: DialogReducerState = {
   createGameDialogOpen: false,
-  alert: {
-    type: AlertType.error,
-    title: 'Title',
-    message: 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem',
-  }
 };
