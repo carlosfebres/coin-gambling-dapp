@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Game } from "../../store/Game/game.models";
-import { useDispatch } from "react-redux";
-import { fetchGameByAddress } from "../../store/Game/game.slide";
+import { ethers } from "ethers";
 import { useRootSelector } from "../../store/utils";
-import { getGameByAddress } from "../../store/Game/game.selectors";
 import {
-  Avatar,
   IconButton,
   ListItem,
   ListItemAvatar,
@@ -13,14 +10,17 @@ import {
   ListItemText,
   makeStyles,
 } from "@material-ui/core";
+import { createStyles, Theme } from "@material-ui/core/styles";
 import { useGameContract } from "../../hooks/useGameContract";
 import { getGamblerAddress } from "../../store/Gambler/gambler.selector";
 import { useGameListener } from "../../hooks/useGameListeners";
+import { isGamblerAPlayer } from "../../store/Game/game.utils";
 import PlayIcon from "@material-ui/icons/PlayCircleFilled";
 import MoneyIcon from "@material-ui/icons/MonetizationOn";
 import WalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import { ethers } from "ethers";
-import { createStyles, Theme } from "@material-ui/core/styles";
+import MoneyOffIcon from "@material-ui/icons/MoneyOff";
+import VideogameIcon from "@material-ui/icons/VideogameAsset";
+import { formatShortAddress, isGamblerWinner } from "../../shared/utils";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,27 +35,37 @@ const useStyles = makeStyles((theme: Theme) =>
     walletIcon: {
       color: "rgb(255,255,255)",
     },
+    moneyOffIcon: {
+      color: "rgb(255,0,0)",
+    },
   })
 );
 
 type GameProps = {
-  address: Game["address"];
+  game: Game;
 };
 
-export const GameItem: React.FC<GameProps> = ({ address }) => {
+const GameItemIcon: React.FC<GameProps> = ({ game }) => {
   const styles = useStyles();
-  const dispatch = useDispatch();
-
-  const game = useRootSelector(getGameByAddress(address));
   const gamblerAddress = useRootSelector(getGamblerAddress);
 
-  useGameListener(address);
+  if (game.finished) {
+    if (isGamblerWinner(game, gamblerAddress || ""))
+      return <MoneyIcon className={styles.moneyIcon} fontSize="large" />;
+    if (gamblerAddress && isGamblerAPlayer(game, gamblerAddress))
+      return <MoneyOffIcon className={styles.moneyOffIcon} fontSize="large" />;
+    return <WalletIcon className={styles.walletIcon} fontSize="large" />;
+  }
+  return <VideogameIcon className={styles.walletIcon} fontSize="large" />;
+};
 
-  const { play } = useGameContract(address);
+export const GameItem: React.FC<GameProps> = ({ game }) => {
+  const styles = useStyles();
 
-  useEffect(() => {
-    dispatch(fetchGameByAddress(address));
-  }, []);
+  useGameListener(game);
+
+  const gamblerAddress = useRootSelector(getGamblerAddress);
+  const { play } = useGameContract(game);
 
   if (!game) {
     return <h4>Game not found</h4>;
@@ -65,28 +75,29 @@ export const GameItem: React.FC<GameProps> = ({ address }) => {
     game.player1 === gamblerAddress || game.player2 === gamblerAddress;
 
   const secondaryText = game.finished
-    ? `Game won by: ${game.winner}`
-    : `Game started by: ${game.player1}`;
-  const formattedBetAmount = ethers.utils.formatUnits(game.betAmount);
+    ? `Game won by: ${formatShortAddress(game.winner)}`
+    : `Game started by: ${formatShortAddress(game.player1)}`;
+  const formattedBetAmount = ethers.utils.formatEther(game.betAmount);
 
   return (
     <React.Fragment>
       <ListItem className={styles.container}>
         <ListItemAvatar>
-          {game.finished ? (
-            <WalletIcon className={styles.walletIcon} fontSize="large" />
-          ) : (
-            <MoneyIcon className={styles.moneyIcon} fontSize="large" />
-          )}
+          <GameItemIcon game={game} />
         </ListItemAvatar>
         <ListItemText
           primaryTypographyProps={{ style: { color: "white" } }}
-          primary={`${formattedBetAmount} eth`}
+          primary={`${formattedBetAmount} ETH`}
           secondary={secondaryText}
         />
         {!imGambler && !game.finished ? (
           <ListItemSecondaryAction>
-            <IconButton onClick={play} edge="end" aria-label="play">
+            <IconButton
+              color="secondary"
+              onClick={play}
+              edge="end"
+              aria-label="play"
+            >
               <PlayIcon />
             </IconButton>
           </ListItemSecondaryAction>

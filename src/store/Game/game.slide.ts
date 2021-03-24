@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Game, gameReducerInitialState } from "./game.models";
+import { Game, GAME_REDUCER_INITIAL_STATE } from "./game.models";
 import { casino, getGameContract } from "../../etherium";
 import { RootState } from "../utils";
 import { getGamblerAddress } from "../Gambler/gambler.selector";
@@ -23,7 +23,13 @@ export const fetchGameByAddress = createAsyncThunk<Game, string>(
 
 export const fetchGameAddresses = createAsyncThunk(
   "game/fetchGameAddresses",
-  () => casino.getGames()
+  async (arg, store) => {
+    const games = await casino.getGames();
+    games.forEach((gameAddress: string) => {
+      store.dispatch(fetchGameByAddress(gameAddress));
+    });
+    return games;
+  }
 );
 
 export const createGame = createAsyncThunk(
@@ -40,16 +46,6 @@ export const createGame = createAsyncThunk(
       const message = error.data?.message || error.message;
       throw new Error(formatEthersReturnMessage(message));
     }
-  }
-);
-
-export const withdrawGameFunds = createAsyncThunk(
-  "game/withdrawGameFunds",
-  async (gameAddress: string, store) => {
-    const game = getGameContract(gameAddress);
-    const transaction = await game.withdraw();
-    await transaction.wait();
-    store.dispatch(fetchGameByAddress(gameAddress));
   }
 );
 
@@ -78,7 +74,7 @@ export const startGamePlay = createAsyncThunk(
 
 export const gameSlide = createSlice({
   name: "game",
-  initialState: gameReducerInitialState,
+  initialState: GAME_REDUCER_INITIAL_STATE,
   reducers: {
     stopCreatingGame(state) {
       state.creatingGame = false;
@@ -104,15 +100,6 @@ export const gameSlide = createSlice({
         state.gameAddresses = action.payload;
       }
     );
-    builder.addCase(withdrawGameFunds.pending, (state) => {
-      state.withdrawing = true;
-    });
-    builder.addCase(withdrawGameFunds.rejected, (state) => {
-      state.withdrawing = false;
-    });
-    builder.addCase(withdrawGameFunds.fulfilled, (state) => {
-      state.withdrawing = false;
-    });
   },
 });
 

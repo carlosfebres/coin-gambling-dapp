@@ -2,10 +2,15 @@ import { Middleware } from "redux";
 import {
   createGambler,
   fetchAddress,
+  fetchGambler,
   fetchGamblerFromCasino,
 } from "./gambler.slide";
 import { RootState } from "../utils";
-import { getUserAddress } from "./gambler.selector";
+import { getGamblerAddress, getUserAddress } from "./gambler.selector";
+import { fetchGameByAddress } from "../Game/game.slide";
+import { getGameByAddress } from "../Game/game.selectors";
+import { Game } from "../Game/game.models";
+import { isGamblerWinner } from "../../shared/utils";
 
 export const gamblerMiddleware: Middleware = (store) => {
   return (next) => {
@@ -17,6 +22,14 @@ export const gamblerMiddleware: Middleware = (store) => {
         store.dispatch(
           fetchGamblerFromCasino(getUserAddress(state) as string) as any
         );
+      }
+      if (action.type === fetchGameByAddress.fulfilled.type) {
+        const state = store.getState() as RootState;
+        const gamblerAddress = getGamblerAddress(state);
+        const game = action.payload as Game;
+        if (gamblerAddress && isGamblerWinner(game, gamblerAddress)) {
+          store.dispatch(fetchGambler(gamblerAddress) as any);
+        }
       }
     };
   };

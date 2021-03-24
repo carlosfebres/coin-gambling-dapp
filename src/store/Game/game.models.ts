@@ -9,14 +9,12 @@ export type Game = {
 
 export type GameReducerState = {
   creatingGame: boolean;
-  withdrawing: boolean;
   gameAddresses: string[];
   games: Record<string, Game>;
 };
 
-export const gameReducerInitialState: GameReducerState = {
+export const GAME_REDUCER_INITIAL_STATE: GameReducerState = {
   creatingGame: false,
-  withdrawing: false,
   gameAddresses: [],
   games: {},
 };

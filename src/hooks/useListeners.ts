@@ -2,7 +2,11 @@ import { useDispatch } from "react-redux";
 import { casino } from "../etherium";
 import { fetchGameByAddress, stopCreatingGame } from "../store/Game/game.slide";
 import { useEffect } from "react";
-import { fetchAddress, fetchGambler } from "../store/Gambler/gambler.slide";
+import {
+  clearGambler,
+  fetchAddress,
+  fetchGambler,
+} from "../store/Gambler/gambler.slide";
 import { setCreateGameDialog } from "../store/Dialogs/dialogs.slide";
 
 export const useListeners = () => {
@@ -21,6 +25,7 @@ export const useListeners = () => {
 
     (window as any).ethereum.on("accountsChanged", () => {
       dispatch(fetchAddress());
+      dispatch(clearGambler());
     });
   }, []);
 };
