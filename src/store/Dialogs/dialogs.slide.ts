@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  Alert,
-  AlertType,
-  DIALOGS_REDUCER_INITIAL_STATE,
-} from "./dialogs.model";
-import { createGambler } from "../Gambler/gambler.slide";
+import { Alert, DIALOGS_REDUCER_INITIAL_STATE } from "./dialogs.model";
 
 export const dialogsSlide = createSlice({
   name: "dialogs",

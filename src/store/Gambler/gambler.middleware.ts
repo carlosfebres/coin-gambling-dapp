@@ -1,6 +1,5 @@
 import { Middleware } from "redux";
 import {
-  createGambler,
   fetchAddress,
   fetchGambler,
   fetchGamblerFromCasino,
@@ -8,7 +7,6 @@ import {
 import { RootState } from "../utils";
 import { getGamblerAddress, getUserAddress } from "./gambler.selector";
 import { fetchGameByAddress } from "../Game/game.slide";
-import { getGameByAddress } from "../Game/game.selectors";
 import { Game } from "../Game/game.models";
 import { isGamblerWinner } from "../../shared/utils";
 
