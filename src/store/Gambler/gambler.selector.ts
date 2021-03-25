@@ -27,3 +27,11 @@ export function getIsWithdrawing(state: RootState) {
 export function getWithdrawProcess(state: RootState) {
   return state.gambler.withdrawProcess;
 }
+
+export function getWalletConnected(state: RootState) {
+  return state.gambler.walletConnected;
+}
+
+export function getGamblerLoading(state: RootState) {
+  return state.gambler.loading;
+}

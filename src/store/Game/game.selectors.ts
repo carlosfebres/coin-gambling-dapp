@@ -38,3 +38,7 @@ export function getGameByAddress(address: string) {
 export function getIsCreatingGame(state: RootState) {
   return state.game.creatingGame;
 }
+
+export function getGamesLoading(state: RootState) {
+  return state.game.loading;
+}

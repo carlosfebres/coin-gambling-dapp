@@ -4,14 +4,8 @@ import { ethers } from "ethers";
 import { Chip, Container, Grid, makeStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { createStyles, Theme } from "@material-ui/core/styles";
 import { useRootSelector } from "../../store/utils";
-import {
-  getFinishedGames,
-  getGamblerGames,
-  getOpenGames,
-} from "../../store/Game/game.selectors";
 import { fetchGameAddresses } from "../../store/Game/game.slide";
 import { useListeners } from "../../hooks/useListeners";
 import {
@@ -19,29 +13,22 @@ import {
   setWithdrawProcess,
 } from "../../store/Gambler/gambler.slide";
 import { CreateGameFabButton } from "../../components/Games/CreateGameFabButton";
-import { GamesList } from "../../components/Games/GamesList";
-import { NoGames } from "../../components/Games/NoGames";
-import { getGambler } from "../../store/Gambler/gambler.selector";
+import {
+  getGambler,
+  getWalletConnected,
+} from "../../store/Gambler/gambler.selector";
 
 import FaceIcon from "@material-ui/icons/Face";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import DnsIcon from "@material-ui/icons/Dns";
 import { formatShortAddress } from "../../shared/utils";
+import { GamesContent } from "../../components/Games/GamesContent";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    text: {
-      padding: theme.spacing(2, 2, 0),
-    },
     appBar: {
       top: "auto",
       bottom: 0,
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    noGameContainer: {
-      marginTop: 32,
     },
     mainContainer: {
       paddingBottom: theme.spacing(12),
@@ -54,23 +41,17 @@ export const HomePage = () => {
   const dispatch = useDispatch();
 
   const gambler = useRootSelector(getGambler);
-  const gamblerGames = useRootSelector(getGamblerGames);
-  const openGames = useRootSelector(getOpenGames);
-  const finishedGames = useRootSelector(getFinishedGames);
+  const isWalletConnected = useRootSelector(getWalletConnected);
+  const gamblerBalance = gambler && ethers.utils.formatEther(gambler.balance);
 
   useListeners();
 
   useEffect(() => {
-    dispatch(fetchAddress());
-    dispatch(fetchGameAddresses());
-  }, []);
-
-  const showNoGames = !(
-    gamblerGames.length +
-    openGames.length +
-    finishedGames.length
-  );
-  const gamblerBalance = gambler && ethers.utils.formatEther(gambler.balance);
+    if (isWalletConnected) {
+      dispatch(fetchAddress());
+      dispatch(fetchGameAddresses());
+    }
+  }, [isWalletConnected]);
 
   const handleWithdraw = () => {
     dispatch(setWithdrawProcess(true));
@@ -79,42 +60,7 @@ export const HomePage = () => {
   return (
     <React.Fragment>
       <Container className={classes.mainContainer}>
-        {showNoGames ? (
-          <div className={classes.noGameContainer}>
-            <NoGames big />
-          </div>
-        ) : null}
-        {!showNoGames ? (
-          <>
-            <Typography
-              color="textSecondary"
-              className={classes.text}
-              variant="h5"
-              gutterBottom
-            >
-              Open Games
-            </Typography>
-            <GamesList games={openGames} />
-            <Typography
-              color="textSecondary"
-              className={classes.text}
-              variant="h5"
-              gutterBottom
-            >
-              My Games
-            </Typography>
-            <GamesList games={gamblerGames} />
-            <Typography
-              color="textSecondary"
-              className={classes.text}
-              variant="h5"
-              gutterBottom
-            >
-              Finished Games
-            </Typography>
-            <GamesList games={finishedGames} />
-          </>
-        ) : null}
+        <GamesContent />
       </Container>
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar variant="dense">

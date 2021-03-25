@@ -84,6 +84,7 @@ export const gameSlide = createSlice({
     builder.addCase(fetchGameByAddress.fulfilled, (state, action) => {
       const game = action.payload;
       state.games[game.address] = game;
+      state.loading = false;
       if (!state.gameAddresses.includes(game.address)) {
         state.gameAddresses.push(game.address);
       }
@@ -98,8 +99,14 @@ export const gameSlide = createSlice({
       fetchGameAddresses.fulfilled,
       (state, action: PayloadAction<string[]>) => {
         state.gameAddresses = action.payload;
+        if (!state.gameAddresses.length) {
+          state.loading = false;
+        }
       }
     );
+    builder.addCase(fetchGameAddresses.pending, (state) => {
+      state.loading = true;
+    });
   },
 });
 

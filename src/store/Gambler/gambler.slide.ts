@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Gambler, GAMBLER_REDUCER_INITIAL_STATE } from "./gambler.model";
-import { casino, getGamblerContract, provider, signer } from "../../etherium";
+import {
+  casino,
+  ethersConnectWallet,
+  getGamblerContract,
+  provider,
+  signer,
+} from "../../etherium";
 import { RootState } from "../utils";
 import { getGamblerAddress } from "./gambler.selector";
 
@@ -27,7 +33,6 @@ export const fetchGambler = createAsyncThunk(
   "gambler/fetchGambler",
   async (gamblerAddress: string): Promise<Gambler> => {
     const gambler = getGamblerContract(gamblerAddress);
-    console.log({ gambler });
     return {
       address: gamblerAddress,
       name: await gambler.name(),
@@ -52,12 +57,25 @@ export const withdrawGameFunds = createAsyncThunk(
   }
 );
 
+export const connectWallet = createAsyncThunk(
+  "game/connectWallet",
+  async () => {
+    await ethersConnectWallet();
+  }
+);
+
 const gamblerSlide = createSlice({
   name: "gambler",
   initialState: GAMBLER_REDUCER_INITIAL_STATE,
   reducers: {
     setWithdrawProcess(state, action: PayloadAction<boolean>) {
       state.withdrawProcess = action.payload;
+    },
+    setWalletConnected(state, action: PayloadAction<boolean>) {
+      state.walletConnected = action.payload;
+    },
+    setNeedsRegister(state, action: PayloadAction<boolean>) {
+      state.needsRegister = action.payload;
     },
     clearGambler(state) {
       state.gambler = undefined;
@@ -67,6 +85,7 @@ const gamblerSlide = createSlice({
     builder.addCase(
       fetchGambler.fulfilled,
       (state, action: PayloadAction<Gambler>) => {
+        state.loading = false;
         state.needsRegister = false;
         state.creatingGambler = false;
         state.gambler = action.payload;
@@ -81,13 +100,18 @@ const gamblerSlide = createSlice({
         state.userAddress = action.payload;
       }
     );
+    builder.addCase(fetchGambler.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(fetchGambler.rejected, () => {
       alert("error fetching gambler contract");
     });
     builder.addCase(createGambler.pending, (state) => {
+      state.loading = false;
       state.creatingGambler = true;
     });
     builder.addCase(createGambler.rejected, (state) => {
+      state.loading = false;
       state.creatingGambler = false;
     });
     builder.addCase(withdrawGameFunds.pending, (state) => {
@@ -100,9 +124,17 @@ const gamblerSlide = createSlice({
       state.withdrawing = false;
       state.withdrawProcess = false;
     });
+    builder.addCase(connectWallet.fulfilled, (state) => {
+      state.walletConnected = true;
+    });
   },
 });
 
 const { reducer, actions } = gamblerSlide;
 export { reducer as gamblerReducer };
-export const { clearGambler, setWithdrawProcess } = actions;
+export const {
+  clearGambler,
+  setWithdrawProcess,
+  setWalletConnected,
+  setNeedsRegister,
+} = actions;

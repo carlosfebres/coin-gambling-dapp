@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import { createStyles, Theme } from "@material-ui/core/styles";
 import { Game } from "../../store/Game/game.models";
 import { NoGames } from "./NoGames";
+import { GamesLoading } from "./LoadingGames";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,11 +17,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type GamesListProps = {
   games: Game[];
+  loading?: boolean;
 };
 
-export const GamesList: React.FC<GamesListProps> = ({ games }) => {
+export const GamesList: React.FC<GamesListProps> = ({
+  games,
+  loading = false,
+}) => {
   const classes = useStyles();
 
+  if (loading) return <GamesLoading />;
   if (!games.length) return <NoGames />;
 
   return (

@@ -7,6 +7,8 @@ export type Gambler = {
 };
 
 export type GamblerReducerState = {
+  loading: boolean;
+  walletConnected: boolean;
   needsRegister: boolean;
   withdrawProcess: boolean;
   withdrawing: boolean;
@@ -16,6 +18,8 @@ export type GamblerReducerState = {
 };
 
 export const GAMBLER_REDUCER_INITIAL_STATE: GamblerReducerState = {
+  loading: false,
+  walletConnected: false,
   needsRegister: false,
   withdrawProcess: false,
   withdrawing: false,
