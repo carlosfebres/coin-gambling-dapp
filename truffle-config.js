@@ -4,9 +4,6 @@ require("dotenv").config();
 
 const privateKeys = [process.env.PRIVATE_KEY];
 
-console.log("PRIVATE_KEY", process.env.PRIVATE_KEY);
-console.log("INFURA_API_KEY", process.env.INFURA_API_KEY);
-
 module.exports = {
   networks: {
     rinkeby: {
@@ -21,7 +18,7 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: "0.8.2",
+      version: "0.8.3",
       parser: "solcjs",
       settings: {
         optimizer: {

@@ -11,8 +11,6 @@ export const provider = new ethers.providers.Web3Provider(ethereum, 'any');
 export const signer = provider.getSigner();
 export const casino = new ethers.Contract(contractAddress, CasinoABI, signer);
 
-console.log({ provider, signer, casino });
-
 export function getGameContract(address: string) {
   return new ethers.Contract(address, GameABI, signer);
 }

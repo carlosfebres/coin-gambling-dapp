@@ -19,7 +19,6 @@ export const dialogMiddleware: Middleware = (store) => {
         );
       }
       if (action.type === createGambler.rejected.type) {
-        console.log({ action });
         store.dispatch(
           showAlert({
             type: AlertType.error,

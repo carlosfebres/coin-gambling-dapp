@@ -61,8 +61,7 @@ export const startGamePlay = createAsyncThunk(
     }
 
     const gameContract = getGameContract(gameAddress);
-
-    console.log({ gameContract, gamblerAddress });
+    
     const transaction = await gameContract.play(gamblerAddress, {
       value: game.betAmount,
     });

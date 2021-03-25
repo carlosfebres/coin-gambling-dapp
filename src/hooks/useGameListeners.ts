@@ -15,7 +15,7 @@ export const useGameListener = (game: Game) => {
           dispatch(fetchGameByAddress(game.address));
         });
         return () => {
-          gameContract.removeAllListeners("gameFinished");
+          gameContract.removeAllListeners();
         };
       }
     }

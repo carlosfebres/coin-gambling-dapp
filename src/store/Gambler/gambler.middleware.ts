@@ -17,8 +17,9 @@ export const gamblerMiddleware: Middleware = (store) => {
 
       if (action.type === fetchAddress.fulfilled.type) {
         const state = store.getState() as RootState;
+        const userAddress = getUserAddress(state) as string;
         store.dispatch(
-          fetchGamblerFromCasino(getUserAddress(state) as string) as any
+          fetchGamblerFromCasino(userAddress) as any
         );
       }
       if (action.type === fetchGameByAddress.fulfilled.type) {

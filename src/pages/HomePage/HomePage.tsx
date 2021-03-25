@@ -47,8 +47,11 @@ export const HomePage = () => {
   useListeners();
 
   useEffect(() => {
+    dispatch(fetchAddress());
+  }, []);
+
+  useEffect(() => {
     if (isWalletConnected) {
-      dispatch(fetchAddress());
       dispatch(fetchGameAddresses());
     }
   }, [isWalletConnected]);

@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import {
   clearGambler,
   fetchAddress,
-  fetchGambler,
   setNeedsRegister,
   setWalletConnected,
 } from "../store/Gambler/gambler.slide";
@@ -21,15 +20,11 @@ export const useListeners = () => {
       dispatch(stopCreatingGame());
     });
 
-    // TODO: Validate just created gambler (triggers when another user registers)
-    casino.on("gamblerRegistered", async (gamblerAddress: string) => {
-      dispatch(fetchGambler(gamblerAddress));
-    });
-
     (window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
       if (accounts.length) {
         dispatch(fetchAddress());
         dispatch(clearGambler());
+        dispatch(setWalletConnected(true));
       } else {
         dispatch(clearGambler());
         dispatch(setWalletConnected(false));
@@ -42,5 +37,9 @@ export const useListeners = () => {
         window.location.reload();
       }
     });
+
+    return () => {
+      casino.removeAllListeners();
+    };
   }, []);
 };

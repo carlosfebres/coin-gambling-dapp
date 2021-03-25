@@ -9,6 +9,8 @@ import {
 } from "../../etherium";
 import { RootState } from "../utils";
 import { getGamblerAddress } from "./gambler.selector";
+import { getGamblerRegistredEventFromTransactionData } from "./gambler.utils";
+import { fetchGameAddresses } from "../Game/game.slide";
 
 export const fetchAddress = createAsyncThunk("gambler/fetchAddress", () =>
   signer.getAddress()
@@ -16,8 +18,14 @@ export const fetchAddress = createAsyncThunk("gambler/fetchAddress", () =>
 
 export const createGambler = createAsyncThunk(
   "gambler/createGambler",
-  async (name: string) => {
-    await casino.registerGambler(name);
+  async (name: string, store) => {
+    const transaction = await casino.registerGambler(name);
+    const result = await transaction.wait();
+    const gamblerAddress = getGamblerRegistredEventFromTransactionData(result);
+    if (gamblerAddress) {
+      store.dispatch(fetchGambler(gamblerAddress));
+      store.dispatch(fetchGameAddresses());
+    }
   }
 );
 
@@ -25,7 +33,7 @@ export const fetchGamblerFromCasino = createAsyncThunk(
   "gambler/fetchGamblerFromCasino",
   async (address: string, store) => {
     const gamblerAddress = await casino.getGambler(address);
-    return store.dispatch(fetchGambler(gamblerAddress));
+    store.dispatch(fetchGambler(gamblerAddress));
   }
 );
 
@@ -98,6 +106,13 @@ const gamblerSlide = createSlice({
       fetchAddress.fulfilled,
       (state, action: PayloadAction<string>) => {
         state.userAddress = action.payload;
+        state.walletConnected = true;
+      }
+    );
+    builder.addCase(
+      fetchAddress.rejected,
+      (state) => {
+        state.walletConnected = false;
       }
     );
     builder.addCase(fetchGambler.pending, (state) => {
