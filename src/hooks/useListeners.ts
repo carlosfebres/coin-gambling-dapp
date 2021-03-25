@@ -14,7 +14,7 @@ export const useListeners = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    casino.on("newGame", async (gameAddress: string) => {
+    casino.on("newGame", (gameAddress: string) => {
       dispatch(setCreateGameDialog(false));
       dispatch(fetchGameByAddress(gameAddress));
       dispatch(stopCreatingGame());
