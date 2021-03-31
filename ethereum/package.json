@@ -1,0 +1,29 @@
+{
+  "name": "casino-smart-contract",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Carlos Febres",
+  "license": "ISC",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "deploy:rinkeby": "truffle migrate --network rinkeby",
+    "deploy:local": "npx hardhat run --network localhost scripts/deploy.js",
+    "run:network": "npx hardhat node"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^12.20.7",
+    "@typechain/ethers-v5": "^6.0.5",
+    "dotenv": "^8.2.0",
+    "hardhat": "^2.1.1",
+    "hardhat-typechain": "^0.3.5",
+    "node-gyp-build": "^4.2.3",
+    "ts-generator": "^0.1.1",
+    "ts-node": "^9.1.1",
+    "typechain": "^4.0.3",
+    "typescript": "^4.2.3",
+    "solc": "^0.8.1"
+  }
+}
