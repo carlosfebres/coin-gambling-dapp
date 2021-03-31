@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { casino, provider } from "../etherium";
+import { casino, getEthereum, provider } from "../ethereum";
 import { fetchGameByAddress, stopCreatingGame } from "../store/Game/game.slide";
 import { useEffect } from "react";
 import {
@@ -12,6 +12,11 @@ import { setCreateGameDialog } from "../store/Dialogs/dialogs.slide";
 
 export const useListeners = () => {
   const dispatch = useDispatch();
+  const ethereum = getEthereum();
+
+  if (!ethereum) {
+    throw new Error("Metamask is not installed");
+  }
 
   useEffect(() => {
     casino.on("newGame", (gameAddress: string) => {
@@ -20,7 +25,7 @@ export const useListeners = () => {
       dispatch(stopCreatingGame());
     });
 
-    (window as any).ethereum.on("accountsChanged", (accounts: string[]) => {
+    ethereum.on("accountsChanged", (accounts: string[]) => {
       if (accounts.length) {
         dispatch(fetchAddress());
         dispatch(clearGambler());

@@ -4,6 +4,7 @@ import { RegisterDialog } from "./RegisterDialog";
 import { AlertDialog } from "./AlertDialog";
 import { WithdrawConfirmationDialog } from "./WithdrawConfirmationDialog";
 import { ConnectWalletDialog } from "./ConnectWalletDialog";
+import { MetamaskNotInstalledDialog } from "./MetamaskNotInstalledDialog";
 
 export const DialogsContainer = () => {
   return (
@@ -12,6 +13,7 @@ export const DialogsContainer = () => {
       <RegisterDialog />
       <WithdrawConfirmationDialog />
       <ConnectWalletDialog />
+      <MetamaskNotInstalledDialog />
       <AlertDialog />
     </>
   );

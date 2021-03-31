@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import { MenuItem, Select } from "@material-ui/core";
-import { ETHER_UNITS, EtherUnit } from "../../etherium/models";
+import { ETHER_UNITS, EtherUnit } from "../../ethereum/models";
 import { ethers } from "ethers";
 
 const useStyles = makeStyles((theme: Theme) =>

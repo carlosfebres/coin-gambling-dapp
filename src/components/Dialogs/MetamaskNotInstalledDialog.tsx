@@ -5,19 +5,15 @@ import {
   Dialog,
   DialogContent,
   Grid,
+  Link,
   SvgIcon,
   Typography,
 } from "@material-ui/core";
 import { useRootSelector } from "../../store/utils";
-import {
-  getMetamaskInstalled,
-  getWalletConnected,
-} from "../../store/Gambler/gambler.selector";
+import { getMetamaskInstalled } from "../../store/Gambler/gambler.selector";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Transition } from "./DialogTransition";
 import { ReactComponent as MetamaskFoxIcon } from "../../images/metamask-fox.svg";
-import { connectWallet } from "../../store/Gambler/gambler.slide";
-import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     dialogText: {
       padding: theme.spacing(2, 2, 2, 2),
       color: theme.palette.text.primary,
+      textAlign: "center",
     },
     dialogActions: {
       padding: theme.spacing(1, 3, 1, 1),
@@ -43,32 +40,32 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const ConnectWalletDialog = () => {
-  const dispatch = useDispatch();
+export const MetamaskNotInstalledDialog = () => {
   const styles = useStyles();
 
-  const isWalletConnected = useRootSelector(getWalletConnected);
   const isMetamaskInstalled = useRootSelector(getMetamaskInstalled);
 
-  const handleConnection = () => {
-    dispatch(connectWallet());
+  const handlePageReload = () => {
+    window.location.reload();
   };
 
   return (
     <Dialog
-      open={!isWalletConnected && isMetamaskInstalled}
+      open={!isMetamaskInstalled}
       TransitionComponent={Transition}
       PaperProps={{ className: styles.dialog }}
     >
       <DialogContent className={styles.dialogContent}>
         <Typography className={styles.dialogText}>
-          Our dApp needs to connect with your wallet
+          To use our dApp you need to have MetaMask installed, click the button
+          bellow to install it.
         </Typography>
-        <Grid container direction="row" justify="center">
-          <Grid item>
+        <Grid container direction="column" spacing={2}>
+          <Grid item container justify="center">
             <Button
+              target="_blank"
+              href="https://metamask.io/download"
               variant="contained"
-              onClick={handleConnection}
               color="primary"
               size="large"
               startIcon={
@@ -79,8 +76,11 @@ export const ConnectWalletDialog = () => {
                 />
               }
             >
-              Connect Wallet
+              Install MetaMask
             </Button>
+          </Grid>
+          <Grid item container justify="center">
+            <Link onClick={handlePageReload}>I have already installed it</Link>
           </Grid>
         </Grid>
       </DialogContent>

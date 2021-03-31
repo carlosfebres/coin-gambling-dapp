@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Game, GAME_REDUCER_INITIAL_STATE } from "./game.models";
-import { casino, getGameContract } from "../../etherium";
+import { casino, getGameContract } from "../../ethereum";
 import { RootState } from "../utils";
 import { getGamblerAddress } from "../Gambler/gambler.selector";
 import { getGameByAddress } from "./game.selectors";
@@ -61,7 +61,7 @@ export const startGamePlay = createAsyncThunk(
     }
 
     const gameContract = getGameContract(gameAddress);
-    
+
     const transaction = await gameContract.play(gamblerAddress, {
       value: game.betAmount,
     });

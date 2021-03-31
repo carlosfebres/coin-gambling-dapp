@@ -2,11 +2,11 @@ import React from "react";
 import "fontsource-roboto";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { HomePage } from "./pages/HomePage/HomePage";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { CssBaseline, MuiThemeProvider } from "@material-ui/core";
 import { createMuiTheme } from "@material-ui/core/styles";
 import BackgroundImage from "./images/background.png";
+import { Pages } from "./pages/Pages";
 
 const theme = createMuiTheme({
   palette: {
@@ -43,9 +43,9 @@ const theme = createMuiTheme({
 const App: React.FC = () => {
   return (
     <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <Provider store={store}>
-        <CssBaseline />
-        <HomePage />
+        <Pages />
         <DialogsContainer />
       </Provider>
     </MuiThemeProvider>

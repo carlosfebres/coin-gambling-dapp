@@ -35,3 +35,7 @@ export function getWalletConnected(state: RootState) {
 export function getGamblerLoading(state: RootState) {
   return state.gambler.loading;
 }
+
+export function getMetamaskInstalled(state: RootState) {
+  return state.gambler.metamaskInstalled;
+}

@@ -6,7 +6,7 @@ import {
   getGamblerContract,
   provider,
   signer,
-} from "../../etherium";
+} from "../../ethereum";
 import { RootState } from "../utils";
 import { getGamblerAddress } from "./gambler.selector";
 import { getGamblerRegistredEventFromTransactionData } from "./gambler.utils";

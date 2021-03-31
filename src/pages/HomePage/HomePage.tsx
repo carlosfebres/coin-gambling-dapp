@@ -5,6 +5,7 @@ import { Chip, Container, Grid, makeStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { createStyles, Theme } from "@material-ui/core/styles";
+
 import { useRootSelector } from "../../store/utils";
 import { fetchGameAddresses } from "../../store/Game/game.slide";
 import { useListeners } from "../../hooks/useListeners";
@@ -17,12 +18,13 @@ import {
   getGambler,
   getWalletConnected,
 } from "../../store/Gambler/gambler.selector";
+import { formatShortAddress } from "../../shared/utils";
+import { GamesContent } from "../../components/Games/GamesContent";
 
+// Icons
 import FaceIcon from "@material-ui/icons/Face";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import DnsIcon from "@material-ui/icons/Dns";
-import { formatShortAddress } from "../../shared/utils";
-import { GamesContent } from "../../components/Games/GamesContent";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

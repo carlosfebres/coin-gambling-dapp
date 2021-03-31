@@ -1,3 +1,5 @@
+import { getEthereum } from "../../ethereum";
+
 export type Gambler = {
   name: string;
   address: string;
@@ -8,6 +10,7 @@ export type Gambler = {
 
 export type GamblerReducerState = {
   loading: boolean;
+  metamaskInstalled: boolean;
   walletConnected: boolean;
   needsRegister: boolean;
   withdrawProcess: boolean;
@@ -19,6 +22,7 @@ export type GamblerReducerState = {
 
 export const GAMBLER_REDUCER_INITIAL_STATE: GamblerReducerState = {
   loading: false,
+  metamaskInstalled: !!getEthereum(),
   walletConnected: false,
   needsRegister: false,
   withdrawProcess: false,
