@@ -106,6 +106,19 @@ export const gameSlide = createSlice({
     builder.addCase(fetchGameAddresses.pending, (state) => {
       state.loading = true;
     });
+    builder.addCase(startGamePlay.pending, (state, action) => {
+      state.playingGames.push(action.meta.arg);
+    });
+    builder.addCase(startGamePlay.rejected, (state, action) => {
+      state.playingGames = state.playingGames.filter(
+        (gameAddress) => gameAddress !== action.meta.arg
+      );
+    });
+    builder.addCase(startGamePlay.fulfilled, (state, action) => {
+      state.playingGames = state.playingGames.filter(
+        (gameAddress) => gameAddress !== action.meta.arg
+      );
+    });
   },
 });
 

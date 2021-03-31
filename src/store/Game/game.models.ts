@@ -10,6 +10,7 @@ export type Game = {
 export type GameReducerState = {
   loading: boolean;
   creatingGame: boolean;
+  playingGames: Game["address"][];
   gameAddresses: string[];
   games: Record<string, Game>;
 };
@@ -17,6 +18,7 @@ export type GameReducerState = {
 export const GAME_REDUCER_INITIAL_STATE: GameReducerState = {
   loading: false,
   creatingGame: false,
+  playingGames: [],
   gameAddresses: [],
   games: {},
 };

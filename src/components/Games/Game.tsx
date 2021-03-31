@@ -3,6 +3,7 @@ import { Game } from "../../store/Game/game.models";
 import { ethers } from "ethers";
 import { useRootSelector } from "../../store/utils";
 import {
+  CircularProgress,
   IconButton,
   ListItem,
   ListItemAvatar,
@@ -65,7 +66,7 @@ export const GameItem: React.FC<GameProps> = ({ game }) => {
   useGameListener(game);
 
   const gamblerAddress = useRootSelector(getGamblerAddress);
-  const { play } = useGameContract(game);
+  const { play, isPlaying } = useGameContract(game);
 
   if (!game) {
     return <h4>Game not found</h4>;
@@ -92,14 +93,18 @@ export const GameItem: React.FC<GameProps> = ({ game }) => {
         />
         {!imGambler && !game.finished ? (
           <ListItemSecondaryAction>
-            <IconButton
-              color="secondary"
-              onClick={play}
-              edge="end"
-              aria-label="play"
-            >
-              <PlayIcon />
-            </IconButton>
+            {isPlaying ? (
+              <CircularProgress color="secondary" size={24} />
+            ) : (
+              <IconButton
+                color="secondary"
+                onClick={play}
+                edge="end"
+                aria-label="play"
+              >
+                <PlayIcon />
+              </IconButton>
+            )}
           </ListItemSecondaryAction>
         ) : null}
       </ListItem>

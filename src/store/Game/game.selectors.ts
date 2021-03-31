@@ -42,3 +42,7 @@ export function getIsCreatingGame(state: RootState) {
 export function getGamesLoading(state: RootState) {
   return state.game.loading;
 }
+
+export function getPlayingGames(state: RootState) {
+  return state.game.playingGames;
+}
