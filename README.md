@@ -40,3 +40,4 @@ The project was built with React and Ethers.js. I also created and deployed smar
 The project is a beta stage, in which there are many parts that can be improved:
 - The smarts contracts have to be optimized and audited.
 - The UI can take advantage of the screen size.
+- Alert the user if a transaction was completed successfully or if an error occurred.
