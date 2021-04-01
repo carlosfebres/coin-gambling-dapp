@@ -16,7 +16,7 @@ The project was built with React and Ethers.js. I also created and deployed smar
 
 ### Process
 
-- First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games and receive the earnings from the games won.
+- First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games played and receive the earnings from the games won.
 
   ![Create Gambler](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/create_gambler.gif)
 
