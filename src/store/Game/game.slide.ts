@@ -37,6 +37,10 @@ export const createGame = createAsyncThunk(
   async (betAmount: string, store) => {
     const state = store.getState() as RootState;
     const gamblerAddress = getGamblerAddress(state);
+    if (!gamblerAddress) {
+      throw new Error("Gambler not found");
+    }
+
     try {
       const transaction = await casino.createGame(gamblerAddress, {
         value: betAmount,
@@ -58,6 +62,9 @@ export const startGamePlay = createAsyncThunk(
 
     if (!game) {
       throw new Error("Game not found");
+    }
+    if (!gamblerAddress) {
+      throw new Error("Gambler not found");
     }
 
     const gameContract = getGameContract(gameAddress);

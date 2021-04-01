@@ -3,7 +3,7 @@ import { getEthereum } from "../../ethereum";
 export type Gambler = {
   name: string;
   address: string;
-  gamesWon: number;
+  gamesWon: string;
   games: string[];
   balance: string;
 };

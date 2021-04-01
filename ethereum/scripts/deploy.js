@@ -2,8 +2,8 @@ async function main() {
   await hre.run('compile');
 
   // We get the contract to deploy
-  const Casino = await ethers.getContractFactory("Casino");
-  const casino = await Casino.deploy();
+  const CasinoFactory = await ethers.getContractFactory("Casino");
+  const casino = await CasinoFactory.deploy();
 
   await casino.deployed();
 
