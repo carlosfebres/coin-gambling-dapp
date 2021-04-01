@@ -18,19 +18,22 @@ The project was built with React and Ethers.js. I also created and deployed smar
 
 - First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games and receive the earnings form the games won.
 
-  ![Create Gambler](https://drive.google.com/uc?id=1dNp9IwQp4JlilYLT1HieWqwnCEgg7JO1)
+  ![Create Gambler](https://user-images.githubusercontent.com/2939980/113249306-7ae77d00-928c-11eb-941e-d1ed24aa052e.png)
+
 
 - After registering as a gambler, you'll be able to play games or create a new one.
 
-  ![Create Gambler](https://drive.google.com/uc?id=1QVmjtTA9yrW65317qUwhgt18vmZLgF5l)
+  ![Create Gambler](https://user-images.githubusercontent.com/2939980/113249627-fea16980-928c-11eb-9e2c-6bc59673c784.png)
+
 
 - To play, click the play button, this will determine how is the winner and send the money to the winner's gambler.
 
-  ![Create Gambler](https://drive.google.com/uc?id=1EYHqB4OJ7tdVZabmZ6QaqBKLmk9jKKgs)
+  ![Play Game](https://user-images.githubusercontent.com/2939980/113249671-15e05700-928d-11eb-993e-be203d6689bb.png)
+
 
 - If you win, you'll be able to withdraw the funds by clicking the wallet badge.
 
-  ![Create Gambler](https://drive.google.com/uc?id=1kKXX9LnlTe0dmk4lgUNiq3ziz7g7D9kf)
+  ![Withdraw Funds](https://user-images.githubusercontent.com/2939980/113249705-27c1fa00-928d-11eb-98a5-26f891baffd4.png)
 
 ### Closing Notes
 
