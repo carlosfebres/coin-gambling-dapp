@@ -26,15 +26,15 @@ export const useListeners = () => {
     });
 
     ethereum.on("accountsChanged", (accounts: string[]) => {
-      if (accounts.length) {
-        dispatch(fetchAddress());
-        dispatch(clearGambler());
-        dispatch(setWalletConnected(true));
-      } else {
+      if (!accounts.length) {
         dispatch(clearGambler());
         dispatch(setWalletConnected(false));
         dispatch(setNeedsRegister(false));
+        return
       }
+      dispatch(fetchAddress());
+      dispatch(clearGambler());
+      dispatch(setWalletConnected(true));
     });
 
     provider.on("network", (newNetwork, oldNetwork) => {

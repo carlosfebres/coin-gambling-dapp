@@ -9,15 +9,13 @@ export const useGameListener = (game: Game) => {
 
   useEffect(() => {
     if (game && !game.finished) {
-      if (!game.finished) {
-        const gameContract = getGameContract(game.address);
-        gameContract.on("gameFinished", () => {
-          dispatch(fetchGameByAddress(game.address));
-        });
-        return () => {
-          gameContract.removeAllListeners();
-        };
-      }
+      const gameContract = getGameContract(game.address);
+      gameContract.on("gameFinished", () => {
+        dispatch(fetchGameByAddress(game.address));
+      });
+      return () => {
+        gameContract.removeAllListeners();
+      };
     }
   }, [game?.finished]);
 };
