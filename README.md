@@ -1,46 +1,46 @@
-# Getting Started with Create React App
+# Micro DAO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Personal Intro
 
-## Available Scripts
+I am passionate about technology and also a very curious person.     
+These two great aspects combined led me to start learning about computers from a very young age,     
+writing my first line of code at 15 years old, back then it was my hobby, now it’s been my career for almost 5 years.
+I’ve never stopped seeking knowledge and instead I have made an effort to improve day-by-day.
 
-In the project directory, you can run:
+**[My Linkedin Profile](https://www.linkedin.com/in/carlos-febres/)**
 
-### `yarn start`
+### Time-Frame
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+20 hours
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Description
 
-### `yarn test`
+The project was built with React and Ethers.js. I also created and deployed smart contracts with Solidity,     
+and Hardhat. It consists of a Casino in which you’re able to bet against players on a coin flip,     
+if it’s heads you win, if not, you lose. The project handles the creation, management,     
+and history of games, also the creation and history of gambles.     
+The game contract receives the money from the gamblers and also sends the money to the winner.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Process
 
-### `yarn build`
+- First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games and receive the earnings form the games won.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  ![Create Gambler](https://drive.google.com/uc?id=1dNp9IwQp4JlilYLT1HieWqwnCEgg7JO1)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- After registering as a gambler, you'll be able to play games or create a new one.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  ![Create Gambler](https://drive.google.com/uc?id=1QVmjtTA9yrW65317qUwhgt18vmZLgF5l)
 
-### `yarn eject`
+- To play, click the play button, this will determine how is the winner and send the money to the winner's gambler.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  ![Create Gambler](https://drive.google.com/uc?id=1EYHqB4OJ7tdVZabmZ6QaqBKLmk9jKKgs)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- If you win, you'll be able to withdraw the funds by clicking the wallet badge.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  ![Create Gambler](https://drive.google.com/uc?id=1kKXX9LnlTe0dmk4lgUNiq3ziz7g7D9kf)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Closing Notes
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The project is a beta stage, in which there are many parts that can be improved:
+- The smarts contracts have to be optimized and audited.
+- The UI can take advantage of the screen size.
