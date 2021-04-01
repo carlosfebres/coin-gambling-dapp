@@ -1,8 +1,8 @@
 import { Middleware } from "redux";
-import { createGambler } from "../Gambler/gambler.slide";
-import { showAlert } from "./dialogs.slide";
+import { createGambler } from "../Gambler/gambler.slice";
+import { showAlert } from "./dialogs.slice";
 import { AlertType } from "./dialogs.model";
-import { createGame } from "../Game/game.slide";
+import { createGame } from "../Game/game.slice";
 
 export const dialogMiddleware: Middleware = (store) => {
   return (next) => {

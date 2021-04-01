@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { startGamePlay } from "../store/Game/game.slide";
+import { startGamePlay } from "../store/Game/game.slice";
 import { useCallback, useMemo } from "react";
 import { Game } from "../store/Game/game.models";
 import { useRootSelector } from "../store/utils";

@@ -14,8 +14,8 @@ import { getIsCreateGameDialogOpen } from "../../store/Dialogs/dialogs.selector"
 import { useDispatch } from "react-redux";
 import { CurrencyInput } from "../Inputs/CurrencyInput";
 import { getIsCreatingGame } from "../../store/Game/game.selectors";
-import { createGame } from "../../store/Game/game.slide";
-import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slide";
+import { createGame } from "../../store/Game/game.slice";
+import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slice";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Transition } from "./DialogTransition";
 

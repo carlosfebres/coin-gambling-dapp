@@ -21,7 +21,7 @@ import { Transition } from "./DialogTransition";
 import {
   setWithdrawProcess,
   withdrawGameFunds,
-} from "../../store/Gambler/gambler.slide";
+} from "../../store/Gambler/gambler.slice";
 import { ethers } from "ethers";
 
 const useStyles = makeStyles((theme: Theme) =>

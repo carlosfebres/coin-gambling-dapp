@@ -78,7 +78,7 @@ export const startGamePlay = createAsyncThunk(
   }
 );
 
-export const gameSlide = createSlice({
+export const gameSlice = createSlice({
   name: "game",
   initialState: GAME_REDUCER_INITIAL_STATE,
   reducers: {
@@ -129,6 +129,6 @@ export const gameSlide = createSlice({
   },
 });
 
-export const { reducer, actions } = gameSlide;
+export const { reducer, actions } = gameSlice;
 export { reducer as gameReducer };
 export const { stopCreatingGame } = actions;

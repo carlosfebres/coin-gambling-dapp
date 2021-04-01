@@ -16,7 +16,7 @@ import {
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Transition } from "./DialogTransition";
 import { ReactComponent as MetamaskFoxIcon } from "../../images/metamask-fox.svg";
-import { connectWallet } from "../../store/Gambler/gambler.slide";
+import { connectWallet } from "../../store/Gambler/gambler.slice";
 import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { getGameContract } from "../ethereum";
-import { fetchGameByAddress } from "../store/Game/game.slide";
+import { fetchGameByAddress } from "../store/Game/game.slice";
 import { useDispatch } from "react-redux";
 import { Game } from "../store/Game/game.models";
 

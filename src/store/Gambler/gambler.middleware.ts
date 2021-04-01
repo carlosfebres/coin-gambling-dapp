@@ -3,10 +3,10 @@ import {
   fetchAddress,
   fetchGambler,
   fetchGamblerFromCasino,
-} from "./gambler.slide";
+} from "./gambler.slice";
 import { RootState } from "../utils";
 import { getGamblerAddress, getUserAddress } from "./gambler.selector";
-import { fetchGameByAddress } from "../Game/game.slide";
+import { fetchGameByAddress } from "../Game/game.slice";
 import { Game } from "../Game/game.models";
 import { isGamblerWinner } from "../../shared/utils";
 

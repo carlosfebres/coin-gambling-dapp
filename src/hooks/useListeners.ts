@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { casino, getEthereum, provider } from "../ethereum";
-import { fetchGameByAddress, stopCreatingGame } from "../store/Game/game.slide";
+import { fetchGameByAddress, stopCreatingGame } from "../store/Game/game.slice";
 import { useEffect } from "react";
 import {
   clearGambler,
   fetchAddress,
   setNeedsRegister,
   setWalletConnected,
-} from "../store/Gambler/gambler.slide";
-import { setCreateGameDialog } from "../store/Dialogs/dialogs.slide";
+} from "../store/Gambler/gambler.slice";
+import { setCreateGameDialog } from "../store/Dialogs/dialogs.slice";
 
 export const useListeners = () => {
   const dispatch = useDispatch();

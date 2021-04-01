@@ -7,12 +7,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { createStyles, Theme } from "@material-ui/core/styles";
 
 import { useRootSelector } from "../../store/utils";
-import { fetchGameAddresses } from "../../store/Game/game.slide";
+import { fetchGameAddresses } from "../../store/Game/game.slice";
 import { useListeners } from "../../hooks/useListeners";
 import {
   fetchAddress,
   setWithdrawProcess,
-} from "../../store/Gambler/gambler.slide";
+} from "../../store/Gambler/gambler.slice";
 import { CreateGameFabButton } from "../../components/Games/CreateGameFabButton";
 import {
   getGambler,

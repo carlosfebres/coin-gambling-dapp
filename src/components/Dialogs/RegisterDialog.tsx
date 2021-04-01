@@ -17,7 +17,7 @@ import {
   getCreatingGambler,
   getNeedsRegister,
 } from "../../store/Gambler/gambler.selector";
-import { createGambler } from "../../store/Gambler/gambler.slide";
+import { createGambler } from "../../store/Gambler/gambler.slice";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Transition } from "./DialogTransition";
 

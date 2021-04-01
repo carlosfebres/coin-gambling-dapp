@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slide";
+import { setCreateGameDialog } from "../../store/Dialogs/dialogs.slice";
 import { useRootSelector } from "../../store/utils";
 import { getIsCreatingGame } from "../../store/Game/game.selectors";
 import Fab from "@material-ui/core/Fab";

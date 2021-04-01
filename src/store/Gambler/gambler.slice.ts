@@ -10,7 +10,7 @@ import {
 import { RootState } from "../utils";
 import { getGamblerAddress } from "./gambler.selector";
 import { getGamblerRegistredEventFromTransactionData } from "./gambler.utils";
-import { fetchGameAddresses } from "../Game/game.slide";
+import { fetchGameAddresses } from "../Game/game.slice";
 
 export const fetchAddress = createAsyncThunk("gambler/fetchAddress", () =>
   signer.getAddress()
@@ -72,7 +72,7 @@ export const connectWallet = createAsyncThunk(
   }
 );
 
-const gamblerSlide = createSlice({
+const gamblerSlice = createSlice({
   name: "gambler",
   initialState: GAMBLER_REDUCER_INITIAL_STATE,
   reducers: {
@@ -145,7 +145,7 @@ const gamblerSlide = createSlice({
   },
 });
 
-const { reducer, actions } = gamblerSlide;
+const { reducer, actions } = gamblerSlice;
 export { reducer as gamblerReducer };
 export const {
   clearGambler,

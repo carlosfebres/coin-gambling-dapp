@@ -4,7 +4,7 @@ import { Snackbar } from "@material-ui/core";
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import { useRootSelector } from "../../store/utils";
 import { getAlert } from "../../store/Dialogs/dialogs.selector";
-import { hideAlert } from "../../store/Dialogs/dialogs.slide";
+import { hideAlert } from "../../store/Dialogs/dialogs.slice";
 import { Alert, AlertType } from "../../store/Dialogs/dialogs.model";
 
 function MuiAlertStyled(props: AlertProps) {

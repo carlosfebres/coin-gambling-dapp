@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { gameReducer } from "./Game/game.slide";
-import { dialogsReducer } from "./Dialogs/dialogs.slide";
-import { gamblerReducer } from "./Gambler/gambler.slide";
+import { gameReducer } from "./Game/game.slice";
+import { dialogsReducer } from "./Dialogs/dialogs.slice";
+import { gamblerReducer } from "./Gambler/gambler.slice";
 
 export const rootReducer = combineReducers({
   game: gameReducer,
