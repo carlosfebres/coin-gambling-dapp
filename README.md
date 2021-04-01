@@ -1,4 +1,4 @@
-# Micro DAO
+# Coin Flip - dApp
 
 ### Personal Intro
 
