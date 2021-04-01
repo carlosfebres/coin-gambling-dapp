@@ -18,22 +18,22 @@ The project was built with React and Ethers.js. I also created and deployed smar
 
 - First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games and receive the earnings form the games won.
 
-  ![Create Gambler](https://user-images.githubusercontent.com/2939980/113249306-7ae77d00-928c-11eb-941e-d1ed24aa052e.png)
+  ![Create Gambler](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/create_gambler.gif)
 
 
 - After registering as a gambler, you'll be able to play games or create a new one.
 
-  ![Create Gambler](https://user-images.githubusercontent.com/2939980/113249627-fea16980-928c-11eb-9e2c-6bc59673c784.png)
+  ![Create Gambler](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/create_game.gif)
 
 
 - To play, click the play button, this will determine how is the winner and send the money to the winner's gambler.
 
-  ![Play Game](https://user-images.githubusercontent.com/2939980/113249671-15e05700-928d-11eb-993e-be203d6689bb.png)
+  ![Play Game](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/play_game.gif)
 
 
 - If you win, you'll be able to withdraw the funds by clicking the wallet badge.
 
-  ![Withdraw Funds](https://user-images.githubusercontent.com/2939980/113249705-27c1fa00-928d-11eb-98a5-26f891baffd4.png)
+  ![Withdraw Funds](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/withdraw_funds.gif)
 
 ### Closing Notes
 
