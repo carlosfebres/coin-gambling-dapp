@@ -16,7 +16,7 @@ The project was built with React and Ethers.js. I also created and deployed smar
 
 ### Process
 
-- First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games and receive the earnings form the games won.
+- First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games and receive the earnings from the games won.
 
   ![Create Gambler](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/create_gambler.gif)
 
@@ -26,7 +26,7 @@ The project was built with React and Ethers.js. I also created and deployed smar
   ![Create Gambler](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/create_game.gif)
 
 
-- To play, click the play button, this will determine how is the winner and send the money to the winner's gambler.
+- To play, click the play button, this will determine how is the winner and send the money to the winner's gambler contract.
 
   ![Play Game](https://raw.githubusercontent.com/carlosfebres/coin-gambling-dapp/main/src/images/gifs/play_game.gif)
 
@@ -37,7 +37,7 @@ The project was built with React and Ethers.js. I also created and deployed smar
 
 ### Closing Notes
 
-The project is a beta stage, in which there are many parts that can be improved:
+The project is in a beta stage, in which there are many parts that can be improved:
 - The smarts contracts have to be optimized and audited.
 - The UI can take advantage of the screen size.
-- Alert the user if a transaction was completed successfully or if an error occurred.
+- Alert the user if a transaction was completed successfully or if an error has occurred.
