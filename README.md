@@ -8,6 +8,17 @@ The project was built with React and Ethers.js. I also created and deployed smar
 
 20 hours
 
+### Local Run
+
+1. install dependencies by running `npm install`
+2. create a `.env` file and add the `REACT_APP_CONTRACT_ADDRESS` environment variable with the address of the Casino contract instance.
+ 
+    You could use the Casino contract instance deployed in the Rinkeby Network by adding this line to the `.env` file:
+```dotenv
+REACT_APP_CONTRACT_ADDRESS=0x3A4d5EB2668Bd13e429874876EC339F6c5F2090A
+```
+3. run `npm start` to start the app.
+
 ### Process
 
 - First create a gambler, it'll create an instance of the `Gambler` contract. This contract will keep a record of the games played and receive the earnings from the games won.
